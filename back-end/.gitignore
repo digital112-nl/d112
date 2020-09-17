@@ -58,3 +58,6 @@ test/**/*.js.map
 # Project
 public
 dist
+
+# Env
+.env

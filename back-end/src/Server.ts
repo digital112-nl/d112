@@ -28,7 +28,7 @@ import * as methodOverride from 'method-override';
   mount: {
     '/api/v1': './src/modules/**/*Controller.ts'
   },
-  debug: false
+  debug: true
 })
 export class Server {
   @Inject()
