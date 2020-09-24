@@ -1,7 +1,10 @@
-import { BodyParams, Controller, Inject, Post, Req, Use, $log } from '@tsed/common';
+import { BodyParams, Controller, Inject, Post, Req, Use } from '@tsed/common';
+import * as VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
+import { ITranscriptionData } from './ITranscriptionData';
 import { TwilioEmergencyHandler } from './TwilioEmergencyHandler';
 import { TwilioVoiceMiddleware } from './TwilioVoiceMiddleware';
-import * as VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
+
+const { BASE_URL } = process.env;
 
 @Controller('/twilio')
 export class TwilioController {
@@ -10,17 +13,30 @@ export class TwilioController {
 
   @Post('/')
   @Use(TwilioVoiceMiddleware)
-  public incomingCall(
+  public async incomingCall(
     @BodyParams() params: any,
     @Req() req: Express.Request
   ) {
-    const voice = new VoiceResponse();
+    const { report, created } = await this.twilioEmergencyHandler.getReport(params[ 'CallSid' ]);
 
-    voice.say(
-      `Thanks for calling!
-     Your phone number is ${params.From}. I got your call because of Twilio´s
-     webhook. Goodbye!`
-    );
+    const voice = new VoiceResponse();
+    if ( created ) {
+      voice.say(
+        `Hello you are calling the (TEST) emergency number! Please state your issue after the beep.`
+      );
+
+      voice.record({
+        transcribe: true,
+        transcribeCallback: `${BASE_URL}/api/v1/twilio/transcribe`
+      });
+
+      return voice.toString();
+    }
+
+    voice.pause({
+      length: 5
+    });
+    voice.say('I just paused 5 seconds');
 
     return voice.toString();
   }
@@ -31,6 +47,16 @@ export class TwilioController {
     @BodyParams() params: any,
     @Req() req: Express.Request
   ) {
+    console.log({ callback: params });
     return {};
+  }
+
+  @Post('/transcribe')
+  @Use(TwilioVoiceMiddleware)
+  public async incomingTranscribe(
+    @BodyParams() { TranscriptionText, CallSid }: ITranscriptionData,
+    @Req() req: Express.Request
+  ) {
+    return this.twilioEmergencyHandler.handle(CallSid, TranscriptionText);
   }
 }

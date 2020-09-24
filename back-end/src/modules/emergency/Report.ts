@@ -1,13 +1,13 @@
 import { Enum, Property } from '@tsed/common';
 import { Model } from '@tsed/mongoose';
 
-enum EmergencyResponseType {
+export enum EmergencyResponseType {
   Text = 0,
   Call = 1
 }
 
 @Model()
-export class Emergency {
+export class Report {
   @Property()
   public _id: string;
   @Property()
