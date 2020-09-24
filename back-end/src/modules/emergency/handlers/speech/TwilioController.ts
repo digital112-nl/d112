@@ -1,16 +1,18 @@
 import { BodyParams, Controller, Inject, Post, Req, Use, $log } from '@tsed/common';
-import { TwilioService } from './TwilioService';
-
-const VoiceResponse = require('twilio/lib/twiml/VoiceResponse');
+import { TwilioEmergencyHandler } from './TwilioEmergencyHandler';
+import { TwilioVoiceMiddleware } from './TwilioVoiceMiddleware';
+import * as VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
 
 @Controller('/twilio')
 export class TwilioController {
-  @Inject(TwilioService)
-  private twilioService: TwilioService;
+  @Inject(TwilioEmergencyHandler)
+  private twilioEmergencyHandler: TwilioEmergencyHandler;
 
   @Post('/')
+  @Use(TwilioVoiceMiddleware)
   public incomingCall(
-    @BodyParams() params: any
+    @BodyParams() params: any,
+    @Req() req: Express.Request
   ) {
     const voice = new VoiceResponse();
 
@@ -24,8 +26,10 @@ export class TwilioController {
   }
 
   @Post('/callback')
+  @Use(TwilioVoiceMiddleware)
   public incomingCallback(
-    @BodyParams() params: any
+    @BodyParams() params: any,
+    @Req() req: Express.Request
   ) {
     return {};
   }

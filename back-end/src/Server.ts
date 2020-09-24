@@ -3,6 +3,7 @@ import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
 import '@tsed/platform-express';
 import '@tsed/swagger';
+import '@tsed/socketio';
 import * as bodyParser from 'body-parser';
 import * as compress from 'compression';
 import * as cookieParser from 'cookie-parser';
@@ -27,8 +28,7 @@ import * as methodOverride from 'method-override';
   },
   mount: {
     '/api/v1': './src/modules/**/*Controller.ts'
-  },
-  debug: true
+  }
 })
 export class Server {
   @Inject()

@@ -1,6 +1,7 @@
 import { Service } from '@tsed/di';
 import { isNil } from 'lodash';
 import { Twilio } from 'twilio';
+import { EmergencyHandler } from '../../EmergencyHandler';
 
 const {
   TWILIO_ACCOUNT_SID,
@@ -8,9 +9,9 @@ const {
 } = process.env;
 
 @Service()
-export class TwilioService {
+export class TwilioEmergencyHandler extends EmergencyHandler {
 
-  private isDisabled: boolean = isNil(TWILIO_ACCOUNT_SID) || isNil(TWILIO_AUTH_TOKEN);
+  public isDisabled: boolean = isNil(TWILIO_ACCOUNT_SID) || isNil(TWILIO_AUTH_TOKEN);
 
   private client: Twilio = this.isDisabled ? null : new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
