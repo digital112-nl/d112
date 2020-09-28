@@ -1,5 +1,6 @@
-import { EndpointInfo, Inject, Middleware, Next, Req, Res } from '@tsed/common';
+import { BodyParams, EndpointInfo, Inject, Middleware, Next, Req, Res } from '@tsed/common';
 import { validateExpressRequest } from 'twilio';
+import { ICallData } from './ICallData';
 import { TwilioEmergencyHandler } from './TwilioEmergencyHandler';
 import * as VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
 

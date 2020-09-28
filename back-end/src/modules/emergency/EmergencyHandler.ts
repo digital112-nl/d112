@@ -53,6 +53,8 @@ export class EmergencyHandler {
   }
 
   protected internalGetReport(identifier: string) {
-    return this.reportModel.findOne({ identifier });
+    return this.reportModel.findOne({ identifier })
+      .populate('messages')
+      .exec();
   }
 }

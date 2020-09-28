@@ -1,6 +1,11 @@
 import { BodyParams, Controller, Inject, Post, Req, Use } from '@tsed/common';
 import * as VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
+import { ReportMessage } from '../../ReportMessage';
+import { ICallbackData } from './ICallbackData';
+import { ICallData } from './ICallData';
 import { ITranscriptionData } from './ITranscriptionData';
+import HelloMessage from './messages/HelloMessage';
+import KeepAliveMessage from './messages/KeepAliveMessage';
 import { TwilioEmergencyHandler } from './TwilioEmergencyHandler';
 import { TwilioVoiceMiddleware } from './TwilioVoiceMiddleware';
 
@@ -14,40 +19,41 @@ export class TwilioController {
   @Post('/')
   @Use(TwilioVoiceMiddleware)
   public async incomingCall(
-    @BodyParams() params: any,
+    @BodyParams() params: ICallData,
     @Req() req: Express.Request
   ) {
-    const { report, created } = await this.twilioEmergencyHandler.getReport(params[ 'CallSid' ]);
+    const isAllowed = this.twilioEmergencyHandler.canCall(params);
 
     const voice = new VoiceResponse();
-    if ( created ) {
-      voice.say(
-        `Hello you are calling the (TEST) emergency number! Please state your issue after the beep.`
-      );
-
-      voice.record({
-        transcribe: true,
-        transcribeCallback: `${BASE_URL}/api/v1/twilio/transcribe`
-      });
-
+    if ( !isAllowed ) {
+      voice.reject();
       return voice.toString();
     }
 
-    voice.pause({
-      length: 5
-    });
-    voice.say('I just paused 5 seconds');
+    const { report, created } = await this.twilioEmergencyHandler.getReport(params[ 'CallSid' ]);
 
-    return voice.toString();
+    // If we just created the call we would like to let them know this is the emergency number.
+    if ( created ) {
+      return HelloMessage()
+        .toString();
+    }
+
+    if ( report.hasPlayableMessages() ) {
+      return this.twilioEmergencyHandler
+        .findAndPlayMessage(report);
+    } else {
+      return KeepAliveMessage()
+        .toString();
+    }
   }
 
   @Post('/callback')
   @Use(TwilioVoiceMiddleware)
   public incomingCallback(
-    @BodyParams() params: any,
+    @BodyParams() params: ICallbackData,
     @Req() req: Express.Request
   ) {
-    console.log({ callback: params });
+    console.log(`${params.CallSid} - ${params.Caller} - ${params.CallStatus}`);
     return {};
   }
 

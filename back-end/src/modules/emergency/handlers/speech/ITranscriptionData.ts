@@ -1,19 +1,12 @@
-export interface ITranscriptionData {
-  ApiVersion: string;
+import { ICallData } from './ICallData';
+
+export interface ITranscriptionData extends ICallData {
   TranscriptionType: string;
   TranscriptionUrl: string;
   TranscriptionSid: string;
-  Called: string;
   RecordingSid: string;
-  CallStatus: string;
   RecordingUrl: string;
-  From: string;
-  Direction: string;
   url: string;
-  AccountSid: string;
   TranscriptionText: string;
-  Caller: string;
   TranscriptionStatus: string;
-  CallSid: string;
-  To: string;
 }
