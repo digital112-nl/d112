@@ -35,7 +35,7 @@ export class TwilioEmergencyHandler extends EmergencyHandler {
     callSid: string,
     text: string
   ) {
-    const { report, created } = await this.getReport(callSid);
+    const { report } = await this.getReport(callSid);
 
     this.internalHandleIncomingText(text, report);
   }
@@ -58,7 +58,6 @@ export class TwilioEmergencyHandler extends EmergencyHandler {
 
     // If all the phone numbers are currently allowed
     const allPhoneNumbersAllowed = allowedPhoneNumbers.indexOf('*') > -1;
-    console.log({ allowedPhoneNumbers, allPhoneNumbersAllowed, caller });
 
     // All phone numbers allowed yes or no
     if ( allPhoneNumbersAllowed ) {
@@ -75,8 +74,6 @@ export class TwilioEmergencyHandler extends EmergencyHandler {
         a: any,
         b: any
       ) => b.createdAt - a.createdAt);
-
-    console.log({ messagesToBePlayed })
 
     if ( messagesToBePlayed.length > 0 ) {
       const selectedMessage = messagesToBePlayed[ 0 ];

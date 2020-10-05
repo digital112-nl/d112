@@ -3,7 +3,7 @@ import { Inject } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Document } from 'mongoose';
 import { DepartmentHandler } from '../ai/department/DepartmentHandler';
-import { EmergencyResponseType, Report } from './Report';
+import { EmergencyResponseType, Report, ReportMode } from './Report';
 
 
 export class EmergencyHandler {
@@ -49,7 +49,12 @@ export class EmergencyHandler {
     text: string,
     report: Report & Document
   ) {
-    return this.departmentHandler.handleIncomingText(text, report);
+    switch (report.reportMode) {
+      case ReportMode.Department:
+        return this.departmentHandler.handleIncomingText(text, report);
+      case ReportMode.Questionnaire:
+        break;
+    }
   }
 
   protected internalGetReport(identifier: string) {

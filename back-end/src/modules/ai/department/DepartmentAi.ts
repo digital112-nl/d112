@@ -10,8 +10,31 @@ export interface WitAiContext {
   coords?: { lat: number, long: number };
 }
 
+export interface WitAiIntent {
+  id: string;
+  name: string;
+  confidence: number;
+}
+
+interface WitAiEntity {
+}
+
+interface WitAiEntities {
+  [ key: string ]: WitAiEntity[];
+}
+
+interface WitAiMessageResponse {
+  text: string;
+  intents: WitAiIntent[];
+  entities: WitAiEntities;
+  traits: any;
+}
+
 interface WitAi {
-  message(message: string, context: WitAiContext): Promise<any>;
+  message(
+    message: string,
+    context: WitAiContext
+  ): Promise<WitAiMessageResponse>;
 }
 
 export interface DepartmentAi extends WitAi {

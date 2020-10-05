@@ -1,6 +1,5 @@
 import { BodyParams, Controller, Inject, Post, Req, Use } from '@tsed/common';
 import * as VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
-import { ReportMessage } from '../../ReportMessage';
 import { ICallbackData } from './ICallbackData';
 import { ICallData } from './ICallData';
 import { ITranscriptionData } from './ITranscriptionData';
@@ -25,6 +24,7 @@ export class TwilioController {
     const isAllowed = this.twilioEmergencyHandler.canCall(params);
 
     const voice = new VoiceResponse();
+
     if ( !isAllowed ) {
       voice.reject();
       return voice.toString();
@@ -60,7 +60,7 @@ export class TwilioController {
   @Post('/transcribe')
   @Use(TwilioVoiceMiddleware)
   public async incomingTranscribe(
-    @BodyParams() { TranscriptionText, CallSid }: ITranscriptionData,
+    @BodyParams() { CallSid, TranscriptionText }: ITranscriptionData,
     @Req() req: Express.Request
   ) {
     return this.twilioEmergencyHandler.handle(CallSid, TranscriptionText);
