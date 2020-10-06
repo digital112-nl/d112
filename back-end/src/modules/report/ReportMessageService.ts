@@ -1,8 +1,7 @@
 import { Inject, Service } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
-import UnknownPleaseTalkAgain from './handlers/speech/messages/UnknownPleaseTalkAgain';
-import { Report } from './Report';
 import { Document } from 'mongoose';
+import { Report } from './Report';
 import { ReportMessage } from './ReportMessage';
 
 @Service()

@@ -4,8 +4,8 @@ import { isNil } from 'lodash';
 import { Document } from 'mongoose';
 import { Twilio } from 'twilio';
 import { EmergencyHandler } from '../../EmergencyHandler';
-import { EmergencyResponseType, Report } from '../../Report';
-import { ReportMessage } from '../../ReportMessage';
+import { EmergencyResponseType, Report } from '../../../report/Report';
+import { ReportMessage } from '../../../report/ReportMessage';
 import { ICallData } from './ICallData';
 import KeepAliveMessage from './messages/KeepAliveMessage';
 

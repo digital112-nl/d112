@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Report } from '../emergency/Report';
+import { Report } from '../report/Report';
 import { WitAiContext } from './department/DepartmentAi';
 
 export class WitContext {

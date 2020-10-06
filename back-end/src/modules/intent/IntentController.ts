@@ -1,7 +1,7 @@
 import { Controller, Get, Returns } from '@tsed/common';
 
 @Controller("/intents")
-export class IntentsController {
+export class IntentController {
   @Get()
   @Returns(String)
   public async example() {

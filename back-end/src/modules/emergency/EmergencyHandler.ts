@@ -3,7 +3,7 @@ import { Inject } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Document } from 'mongoose';
 import { DepartmentHandler } from '../ai/department/DepartmentHandler';
-import { EmergencyResponseType, Report, ReportMode } from './Report';
+import { EmergencyResponseType, Report, ReportMode } from '../report/Report';
 
 
 export class EmergencyHandler {
