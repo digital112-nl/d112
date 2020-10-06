@@ -1,0 +1,214 @@
+@import "component";
+
+// Styling of the left menu when it's opened
+.side-bar {
+  position: relative;
+  width: 200px;
+  // height: 100%; Doesn't work on safari
+  height: 100vh;
+  background-color: #FFF;
+
+  color: #000;
+
+  overflow-x: hidden;
+  transition: width .25s ease-out;
+
+  .side-bar__logo-container {
+    position: relative;
+    margin: 30px 0 0 32px;
+    height: 25px;
+    outline: none;
+    cursor: pointer;
+
+    transition: margin .25s ease-out;
+
+    .side-bar__logo {
+      position: absolute;
+      height: 100%;
+
+      pointer-events: none;
+      transition: opacity .25s ease-out;
+
+      &--small {
+        opacity: 0;
+      }
+    }
+
+    &--product {
+      margin: 30px 0 18px 32px;
+    }
+  }
+
+  .side-bar__product-name {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    opacity: 1;
+    @include font(14, 600);
+
+    transition: opacity .15s ease-out, transform .25s ease-out, left .25s ease-out;
+
+    &--small {
+      opacity: 0;
+      transition: opacity 0s ease-out;
+    }
+  }
+
+  // Styling of the container with all the childs in it
+  .side-bar__menu-container {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 82px);
+    overflow-x: hidden;
+
+    @include scrollbars(5px, #000, transparent);
+
+    // Syling of the tabs
+    // it needs to have a width of 100% so the mixins can be used to center the svg-icons
+    .side-bar__tabs {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+
+      .side-bar__tab {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+        text-decoration: none;
+
+        border-left: 3px solid rgba(0, 0, 0, 0);
+        border-right: 3px solid rgba(0, 0, 0, 0);
+        color: #000;
+
+        min-height: 40px;
+        margin: 0 20px 5px 0;
+        border-radius: 0 5px 5px 0;
+        background: #fff;
+
+        transition: color .25s ease-out, box-shadow .25s ease-out, border-left-color .25s ease-out, margin-right .25s ease-out;
+
+        // Icons in tab
+        .evbg-icon {
+          margin-left: 32px;
+          transition: margin-left .25s ease-out, color .25s ease-out;
+        }
+
+        // Button left in tab
+        span {
+          margin-left: 15px;
+          @include font(14, 600);
+          white-space: nowrap;
+
+          transition: opacity .10s ease-out;
+        }
+
+        // Move a tab to the button
+        &--bottom {
+          margin-top: auto;
+          margin-bottom: 32px !important;
+        }
+
+        // Disabled state for a button
+        &--disabled {
+          opacity: .3;
+          pointer-events: none;
+        }
+
+        // Hover effect for the side-bar tab
+        &:hover,
+        &.side-bar__tab--active {
+          color: red;
+          box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .10);
+
+          border-left-color: red;
+          background: #000;
+
+          .evbg-icon {
+            color: #000
+          }
+        }
+      }
+    }
+
+    // Styling of the footer
+    // flex: 1 and align-items: center will push the footer to bottom as long the container height is 100%
+    .side-bar__footer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      flex: 1 1 auto;
+
+      margin-bottom: 5px;
+    }
+  }
+
+  // Styling of the closed menu
+  // the span, header and footer are set to display none so they don't appear in the menu it is closed.
+  &.side-bar--closed {
+    width: 50px;
+
+    .side-bar__logo-container {
+      margin: 30px 0 0 10px;
+
+      .side-bar__logo {
+        opacity: 0;
+
+        &--small {
+          opacity: 1;
+        }
+      }
+
+      &--product {
+        margin: 30px 0 18px 10px;
+      }
+    }
+
+    .side-bar__product-name {
+      opacity: 0;
+
+      &--small {
+        opacity: 1;
+        left: calc(50% - 5px);
+        transform: translateX(-50%);
+        transition-delay: .25s;
+
+        transition: opacity .15s ease-out, transform .25s ease-out, left .25s ease-out;
+      }
+    }
+
+    // Styling of the container and the menu's
+    // it needs to be centered to center the icons in the menu
+    .side-bar__menu-container .side-bar__tabs .side-bar__tab,
+    ::ng-deep .side-bar__menu-container .side-bar__tabs .side-bar__tab {
+      //justify-content: center;
+      margin-right: 0;
+
+      .evbg-icon {
+        margin-left: 14px;
+      }
+
+      span {
+        opacity: 0;
+      }
+    }
+
+    // Span in header
+    ::ng-deep .side-bar__header span {
+      opacity: 0;
+    }
+
+    // Footer in left menu
+    .side-bar__footer {
+      display: none;
+    }
+  }
+}
+

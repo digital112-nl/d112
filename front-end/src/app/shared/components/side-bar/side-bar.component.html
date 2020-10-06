@@ -1,0 +1,41 @@
+<div [ngClass]="{ 'side-bar--closed': sideBarService.isClosed }" class="side-bar">
+  <div class="side-bar__logo-container">
+    <h1>Digital 112</h1>
+<!--    <span class="side-bar__product-name">-->
+<!--      Digital 112-->
+<!--    </span>-->
+<!--    <span class="side-bar__product-name side-bar__product-name&#45;&#45;small">-->
+<!--      D112-->
+<!--    </span>-->
+  </div>
+
+  <div class="side-bar__menu-container">
+    <div class="side-bar__tabs">
+      <ng-container
+        *ngFor="let sideBarContainer of sideBarFormat; trackBy: trackByFn">
+        <div class="side-bar__container">
+          <ng-container
+            *ngFor="let sideBarItem of sideBarContainer.items; trackBy: trackByFn">
+            <a [id]="sideBarItem.key"
+               [ngClass]="{ 'side-bar__tab--disabled': sideBarItem.disabled }"
+               [routerLinkActive]="'side-bar__tab--active'"
+               [routerLink]="sideBarItem.routerLink"
+               class="side-bar__tab"
+               title="{{ sideBarItem.key }}">
+              <i class="sr-icon sr-{{ sideBarItem.icon }}"></i>
+              <span>{{ sideBarItem.key }}</span>
+            </a>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <div (click)="sideBarService.toggleSideBar()"
+           class="side-bar__tab side-bar__tab--bottom"
+           title="{{ 'Close sidebar' }}">
+        <i [ngClass]="{ 'evbg-logout': sideBarService.isClosed, 'evbg-log-out': !sideBarService.isClosed }"
+           class="evbg-icon evbg-logout"></i>
+        <span>{{ 'Close' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
