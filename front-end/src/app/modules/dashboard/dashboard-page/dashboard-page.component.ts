@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TestControllerService } from '../../../api/services';
+import { ReportSocketService } from '../../../shared/services/report-socket.service';
 
 @Component({
   selector: 'di-server-page',
@@ -10,9 +10,9 @@ export class DashboardPageComponent {
   private data: string;
 
   constructor(
-    private testControllerService: TestControllerService
+    private reportSocketService: ReportSocketService
   ) {
-    this.testControllerService.TestControllerExample()
-      .subscribe((data) => this.data = data);
+    this.reportSocketService.on('new-report')
+      .subscribe((report) => console.log('!! NEW REPORT', report));
   }
 }

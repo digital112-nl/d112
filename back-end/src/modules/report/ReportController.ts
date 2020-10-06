@@ -1,10 +1,13 @@
-import { ContentType, Controller, Get, PathParams, Returns, ReturnsArray } from '@tsed/common';
+import { ContentType, Controller, Get, PathParams, Returns, ReturnsArray, Req, Use } from '@tsed/common';
 import { Inject } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Report } from './Report';
 import { ReportMessage } from './ReportMessage';
+import { AuthenticationMiddleware, RequestWithUser } from '../auth/middleware/AuthenticationMiddleware';
+
 
 @Controller('/reports')
+@Use(AuthenticationMiddleware)
 export class ReportController {
   @ContentType('application/json')
   @Inject(Report)
