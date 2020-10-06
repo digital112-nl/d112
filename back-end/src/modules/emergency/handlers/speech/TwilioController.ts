@@ -30,7 +30,11 @@ export class TwilioController {
       return voice.toString();
     }
 
+    // Update caller & call status
     const { report, created } = await this.twilioEmergencyHandler.getReport(params[ 'CallSid' ]);
+    report.caller = params.Caller;
+    report.callStatus = params.CallStatus;
+    await report.save();
 
     // If we just created the call we would like to let them know this is the emergency number.
     if ( created ) {
@@ -38,6 +42,7 @@ export class TwilioController {
         .toString();
     }
 
+    // If it has playable messages
     if ( report.hasPlayableMessages() ) {
       return this.twilioEmergencyHandler
         .findAndPlayMessage(report);
@@ -49,11 +54,13 @@ export class TwilioController {
 
   @Post('/callback')
   @Use(TwilioVoiceMiddleware)
-  public incomingCallback(
+  public async incomingCallback(
     @BodyParams() params: ICallbackData,
     @Req() req: Express.Request
   ) {
-    console.log(`${params.CallSid} - ${params.Caller} - ${params.CallStatus}`);
+    const { report } = await this.twilioEmergencyHandler.getReport(params[ 'CallSid' ]);
+    report.callStatus = params.CallStatus;
+    await report.save();
     return {};
   }
 

@@ -61,8 +61,6 @@ export class DepartmentHandler {
           ...department.default
         };
 
-        console.log({ matches, matchesWithDivider });
-
         // If it matches with the divider (e.g fire_department_) which likely means there is a category provided
         if ( matchesWithDivider ) {
           const categoryName = intent.name.replace(nameWithDivider, '');
