@@ -4,6 +4,7 @@ import { MongooseModel } from '@tsed/mongoose';
 import { Document } from 'mongoose';
 import { DepartmentHandler } from '../ai/department/DepartmentHandler';
 import { EmergencyResponseType, Report, ReportMode } from '../report/Report';
+import { ReportSocketService } from '../report/ReportSocketService';
 
 
 export class EmergencyHandler {
@@ -11,6 +12,8 @@ export class EmergencyHandler {
   private departmentHandler: DepartmentHandler;
   @Inject(Report)
   private reportModel: MongooseModel<Report>;
+  @Inject(ReportSocketService)
+  private reportSocketService: ReportSocketService;
 
   protected async internalCreateOrGetReport(
     identifier: string,
@@ -41,6 +44,8 @@ export class EmergencyHandler {
     } as Report);
 
     await report.save();
+
+    this.reportSocketService.newReport(report);
 
     return report;
   }
