@@ -1,22 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ClickOutsideModule } from 'ng-click-outside';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { SideBarService } from './side-bar/side-bar.service';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { TopBarService } from './top-bar/top-bar.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+
+    ClickOutsideModule
   ],
   declarations: [
-    SideBarComponent
+    SideBarComponent,
+    TopBarComponent
   ],
   exports: [
-    SideBarComponent
+    SideBarComponent,
+    TopBarComponent
   ],
   providers: [
-    SideBarService
+    SideBarService,
+    TopBarService
   ]
 })
 export class SharedComponentsModule {

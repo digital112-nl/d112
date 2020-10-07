@@ -24,6 +24,7 @@
     "@angular/router": "~8.2.5",
     "lodash": "^4.14.15",
     "moment-timezone": "^0.5.31",
+    "ng-click-outside": "^7.0.0",
     "ngx-timeago": "^1.0.4",
     "normalize.css": "^8.0.1",
     "rxjs": "~6.4.0",
