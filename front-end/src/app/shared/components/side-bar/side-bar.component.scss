@@ -3,20 +3,22 @@
 // Styling of the left menu when it's opened
 .side-bar {
   position: relative;
+  display: flex;
+  flex-flow: column;
   width: 200px;
   // height: 100%; Doesn't work on safari
   height: 100vh;
-  background-color: #FFF;
+  background-color: $side-bar-background;
 
-  color: #000;
+  color: $text-default;
 
   overflow-x: hidden;
   transition: width .25s ease-out;
 
   .side-bar__logo-container {
+    margin: 32px 0 132px;
+    display: flex;
     position: relative;
-    margin: 30px 0 0 32px;
-    height: 25px;
     outline: none;
     cursor: pointer;
 
@@ -24,33 +26,24 @@
 
     .side-bar__logo {
       position: absolute;
-      height: 100%;
+      width: 100%;
+      text-align: center;
+      margin: 0;
 
-      pointer-events: none;
-      transition: opacity .25s ease-out;
+      @include font(32, 800);
+      font-family: 'Darker Grotesque', sans-serif;
+      white-space: nowrap;
+      transition: opacity .15s ease-out;
+
+      span {
+        color: $text-link;
+        font-weight: bold;
+      }
 
       &--small {
+        @include font(22, 800);
         opacity: 0;
       }
-    }
-
-    &--product {
-      margin: 30px 0 18px 32px;
-    }
-  }
-
-  .side-bar__product-name {
-    position: absolute;
-    top: 25px;
-    left: 0;
-    opacity: 1;
-    @include font(14, 600);
-
-    transition: opacity .15s ease-out, transform .25s ease-out, left .25s ease-out;
-
-    &--small {
-      opacity: 0;
-      transition: opacity 0s ease-out;
     }
   }
 
@@ -59,10 +52,10 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 82px);
+    flex: 1;
     overflow-x: hidden;
 
-    @include scrollbars(5px, #000, transparent);
+    @include scrollbars(5px, $text-default, transparent);
 
     // Syling of the tabs
     // it needs to have a width of 100% so the mixins can be used to center the svg-icons
@@ -83,26 +76,24 @@
         outline: none;
         text-decoration: none;
 
-        border-left: 3px solid rgba(0, 0, 0, 0);
-        border-right: 3px solid rgba(0, 0, 0, 0);
-        color: #000;
+        color: $text-default;
 
-        min-height: 40px;
-        margin: 0 20px 5px 0;
-        border-radius: 0 5px 5px 0;
-        background: #fff;
+        min-height: 45px;
+        margin: 0 16px 14px;
+        border-radius: 14px;
+        background: $side-bar-item;
 
-        transition: color .25s ease-out, box-shadow .25s ease-out, border-left-color .25s ease-out, margin-right .25s ease-out;
+        transition: color .25s ease-out, box-shadow .25s ease-out, border-left-color .25s ease-out, margin .25s ease-out;
 
         // Icons in tab
-        .evbg-icon {
-          margin-left: 32px;
-          transition: margin-left .25s ease-out, color .25s ease-out;
+        .di-icon {
+          color: $text-default;
+          margin: 0 14px;
+          transition: margin .25s ease-out, color .25s ease-out;
         }
 
         // Button left in tab
         span {
-          margin-left: 15px;
           @include font(14, 600);
           white-space: nowrap;
 
@@ -124,16 +115,25 @@
         // Hover effect for the side-bar tab
         &:hover,
         &.side-bar__tab--active {
-          color: red;
-          box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .10);
+          color: $text-white;
+          background: $side-bar-item-active;
 
-          border-left-color: red;
-          background: #000;
-
-          .evbg-icon {
-            color: #000
+          .di-icon {
+            color: $icon-white;
           }
         }
+
+        &.side-bar__tab--active {
+          box-shadow: 0 2px 10px 0 rgba(6, 77, 254, .50);
+        }
+      }
+
+      .side-bar__container-divider {
+        display: flex;
+        height: 1px;
+        width: calc(100% - 32px);
+        margin: 32px 16px;
+        background: $border-default;
       }
     }
 
@@ -156,7 +156,7 @@
     width: 50px;
 
     .side-bar__logo-container {
-      margin: 30px 0 0 10px;
+      margin: 32px 0 132px;
 
       .side-bar__logo {
         opacity: 0;
@@ -165,38 +165,26 @@
           opacity: 1;
         }
       }
-
-      &--product {
-        margin: 30px 0 18px 10px;
-      }
-    }
-
-    .side-bar__product-name {
-      opacity: 0;
-
-      &--small {
-        opacity: 1;
-        left: calc(50% - 5px);
-        transform: translateX(-50%);
-        transition-delay: .25s;
-
-        transition: opacity .15s ease-out, transform .25s ease-out, left .25s ease-out;
-      }
     }
 
     // Styling of the container and the menu's
     // it needs to be centered to center the icons in the menu
     .side-bar__menu-container .side-bar__tabs .side-bar__tab,
     ::ng-deep .side-bar__menu-container .side-bar__tabs .side-bar__tab {
-      //justify-content: center;
-      margin-right: 0;
+      margin: 0 0 14px;
 
-      .evbg-icon {
-        margin-left: 14px;
+
+      .di-icon {
+        margin: 0 0 0 15px;
       }
 
       span {
         opacity: 0;
+      }
+
+      &--bottom {
+        margin-top: auto;
+        margin-bottom: 32px !important;
       }
     }
 

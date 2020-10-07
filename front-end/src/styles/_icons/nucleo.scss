@@ -1,0 +1,155 @@
+/* --------------------------------
+
+Digital112 icon Web Font
+Generated using nucleoapp.com
+
+-------------------------------- */
+@import "variables";
+@import "mixins";
+
+@font-face {
+  font-family: 'Digital112 icon';
+  src: url('#{$di-font-path}/Digital112 icon.eot');
+  src: url('#{$di-font-path}/Digital112 icon.eot') format('embedded-opentype'),
+    url('#{$di-font-path}/Digital112 icon.woff2') format('woff2'),
+    url('#{$di-font-path}/Digital112 icon.woff') format('woff'),
+    url('#{$di-font-path}/Digital112 icon.ttf') format('truetype'),
+    url('#{$di-font-path}/Digital112 icon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*------------------------
+	base class definition
+-------------------------*/
+
+.di-icon {
+  display: inline-block;
+  font: normal normal normal 1em/1 'Digital112 icon';
+  speak: none;
+  text-transform: none;
+  /* Better Font Rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*------------------------
+  change icon size
+-------------------------*/
+
+/* relative units */
+.di-icon-sm {
+  font-size: 0.8em;
+}
+.di-icon-lg {
+  font-size: 1.2em;
+}
+/* absolute units */
+.di-icon-16 {
+  font-size: 16px;
+}
+.di-icon-32 {
+  font-size: 32px;
+}
+
+/*----------------------------------
+  add a square/circle background
+-----------------------------------*/
+
+.di-icon-bg-square,
+.di-icon-bg-circle {
+  padding: 0.35em;
+  background-color: $di-background-color;
+}
+
+.di-icon-bg-circle {
+  border-radius: 50%;
+}
+
+/*------------------------------------
+  use icons as list item markers
+-------------------------------------*/
+
+.di-icon-ul {
+  padding-left: 0;
+  list-style-type: none;
+
+  > li {
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+
+  > li > .di-icon {
+    margin-right: $di-li-margin-right;
+    line-height: inherit;
+  }
+}
+
+/*------------------------
+  spinning icons
+-------------------------*/
+
+.di-icon-is-spinning {
+  -webkit-animation: di-icon-spin 2s infinite linear;
+  -moz-animation: di-icon-spin 2s infinite linear;
+  animation: di-icon-spin 2s infinite linear;
+}
+
+@-webkit-keyframes di-icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes di-icon-spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@keyframes di-icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/*------------------------
+  rotated/flipped icons
+-------------------------*/
+
+.di-icon-rotate-90  {
+	@include di-rotate(90deg, 1);
+}
+
+.di-icon-rotate-180 {
+	@include di-rotate(180deg, 2);
+}
+
+.di-icon-rotate-270 {
+	@include di-rotate(270deg, 3);
+}
+
+.di-icon-flip-y {
+	@include di-flip(-1, 1, 0);
+}
+.di-icon-flip-x {
+	@include di-flip(1, -1, 2);
+}
+
+@import "icons";

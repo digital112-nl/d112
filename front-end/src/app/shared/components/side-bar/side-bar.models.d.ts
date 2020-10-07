@@ -2,6 +2,7 @@
  * Sidebar Header container
  */
 export interface SideBarContainer {
+  divider?: boolean;
   items: SideBarItem[];
 }
 
