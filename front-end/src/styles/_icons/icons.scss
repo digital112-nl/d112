@@ -28,6 +28,10 @@ $di-priority-high: unicode(ea15);
 $di-priority-lowest: unicode(ea16);
 $di-priority-low: unicode(ea17);
 $di-priority-highest: unicode(ea18);
+$di-i-remove: unicode(ea19);
+$di-e-remove: unicode(ea1a);
+$di-trash-can-1: unicode(ea1b);
+$di-trash-can-2: unicode(ea1c);
 
 .di-house-1::before {
   content: $di-house-1;
@@ -119,5 +123,21 @@ $di-priority-highest: unicode(ea18);
 
 .di-priority-highest::before {
   content: $di-priority-highest;
+}
+
+.di-i-remove::before {
+  content: $di-i-remove;
+}
+
+.di-e-remove::before {
+  content: $di-e-remove;
+}
+
+.di-trash-can-1::before {
+  content: $di-trash-can-1;
+}
+
+.di-trash-can-2::before {
+  content: $di-trash-can-2;
 }
 

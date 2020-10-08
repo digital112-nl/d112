@@ -1,0 +1,41 @@
+<div *ngFor="let notification of notifications"
+     class="notification notification--{{ notification.settings.variation }}"
+     (mouseenter)="onHover(notification)"
+     (mouseleave)="onHoverOut(notification)"
+     [ngClass]="{ 'notification--hide': notification.hide === true }">
+  <div class="notification__content">
+    <div class="notification__icon">
+      {{ notification.settings.icon }}
+    </div>
+    <div class="notification__text">
+      <div class="notification__header" *ngIf="notification.settings.header !== undefined">
+        {{ notification.settings.header }}
+      </div>
+      <div class="notification__value">
+        {{ notification.settings.message }}
+      </div>
+    </div>
+    <div class="notification__state">
+      <div class="notification__timer">
+        <mat-progress-spinner
+          mode="determinate"
+          [diameter]="24"
+          [strokeWidth]="2"
+          [value]="notification.timerPercentage">
+        </mat-progress-spinner>
+      </div>
+      <div class="notification__close"
+           (click)="onClose(notification)">
+        <i class="di-icon di-e-remove"></i>
+      </div>
+    </div>
+  </div>
+  <div class="notification-extra"
+       *ngIf="notification.settings.buttons !== undefined && notification.settings.buttons.length > 0">
+    <div *ngFor="let button of notification.settings.buttons"
+         class="notification-extra__button notification-extra__button--{{ button.color }}"
+         (click)="onButtonClick(notification, button)">
+      {{ button.translationKey }}
+    </div>
+  </div>
+</div>
