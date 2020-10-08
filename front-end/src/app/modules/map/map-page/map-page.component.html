@@ -1,1 +1,7 @@
-Map page :)
+<div style="height: 100%;"
+     leaflet
+     class="map-instance"
+     (leafletMapReady)="internalMapReady($event)"
+     [leafletLayers]="layers"
+     [leafletOptions]="options">
+</div>
