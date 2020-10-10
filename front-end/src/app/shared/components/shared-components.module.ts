@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { MapComponent } from './map/map.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationService } from './notification/notification.service';
 import { SideBarComponent } from './side-bar/side-bar.component';
@@ -16,17 +18,20 @@ import { TopBarService } from './top-bar/top-bar.service';
     RouterModule,
     MatProgressSpinnerModule,
 
-    ClickOutsideModule
+    ClickOutsideModule,
+    LeafletModule
   ],
   declarations: [
     SideBarComponent,
     TopBarComponent,
-    NotificationComponent
+    NotificationComponent,
+    MapComponent
   ],
   exports: [
     SideBarComponent,
     TopBarComponent,
-    NotificationComponent
+    NotificationComponent,
+    MapComponent
   ],
   providers: [
     SideBarService,

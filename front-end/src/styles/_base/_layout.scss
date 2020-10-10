@@ -1,0 +1,145 @@
+$grid-cols: 12 !default;
+$grid-gutter-width: px-rem(32) !default;
+$grid-outer-margin: px-rem(32) !default;
+
+$half-gutter-width: $grid-gutter-width * 0.5;
+$gutter-compensation: $half-gutter-width * -1;
+
+$container-sm: px-rem($screen-sm-number) + px-rem(32);
+$container-md: px-rem($screen-md-number) + px-rem(32);
+$container-lg: px-rem($screen-lg-number) + px-rem(32);
+
+.grid-container--fluid,
+.grid-container {
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 100%;
+}
+
+.grid-container {
+  padding-left: $grid-gutter-width / 2;
+  padding-right: $grid-gutter-width / 2;
+}
+
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: $gutter-compensation;
+  margin-right: $gutter-compensation;
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.col {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  padding-left: $half-gutter-width;
+  padding-right: $half-gutter-width;
+  width: fit-content;
+
+  &.reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+@mixin create-cols($v: "xs") {
+  .col-#{$v} {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+
+  @for $col-index from 1 through $grid-cols {
+    $col-width: ((100 / $grid-cols) * $col-index) * 1%;
+
+    .col-#{$v}-#{$col-index} {
+      flex-basis: $col-width;
+      max-width: $col-width;
+    }
+
+    .col-#{$v}-offset-#{$col-index} {
+      margin-left: $col-width;
+    }
+  }
+
+  .start-#{$v} {
+    justify-content: flex-start;
+  }
+
+  .center-#{$v} {
+    justify-content: center;
+  }
+
+  .end-#{$v} {
+    justify-content: flex-end;
+  }
+
+  .top-#{$v} {
+    align-items: flex-start;
+  }
+
+  .middle-#{$v} {
+    align-items: center;
+  }
+
+  .bottom-#{$v} {
+    align-items: flex-end;
+  }
+
+  .around-#{$v} {
+    justify-content: space-around;
+  }
+
+  .between-#{$v} {
+    justify-content: space-between;
+  }
+
+  .first-#{$v} {
+    order: -1;
+  }
+
+  .last-#{$v} {
+    order: 1;
+  }
+}
+
+@include create-cols("xs");
+
+@include sm-viewport {
+  .grid-container {
+    width: $container-sm;
+  }
+
+  @include create-cols("sm");
+}
+
+@include md-viewport {
+  .grid-container {
+    width: $container-md;
+  }
+
+  @include create-cols("md");
+}
+
+@include lg-viewport {
+  .grid-container {
+    width: $container-lg;
+  }
+
+  @include create-cols("lg");
+}
+
+@include xl-viewport {
+  @include create-cols("xl");
+}

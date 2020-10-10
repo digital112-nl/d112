@@ -9,7 +9,6 @@ import { ReportSocketService } from '../../../shared/services/report-socket.serv
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent {
-  private data: string;
 
   constructor(
     private reportSocketService: ReportSocketService,
