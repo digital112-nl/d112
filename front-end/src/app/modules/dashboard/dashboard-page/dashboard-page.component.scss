@@ -4,4 +4,14 @@
 :host {
   display: flex;
   flex-direction: column;
+
+  .map-container {
+    position: relative;
+    height: 60vh;
+
+    di-map {
+      border-radius: 32px;
+      overflow: hidden;
+    }
+  }
 }

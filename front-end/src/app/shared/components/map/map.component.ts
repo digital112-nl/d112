@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, HostBinding, Input, Output } from '@angular/core';
 import { control, Layer, Map, MapOptions, tileLayer } from 'leaflet';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,6 +8,9 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
+
+  @HostBinding('class.full-map')
+  @Input() public fullMap = false;
 
   public options: MapOptions = {
     center: {
