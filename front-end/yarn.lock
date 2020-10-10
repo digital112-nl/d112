@@ -5442,10 +5442,10 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ng-click-outside@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/ng-click-outside/-/ng-click-outside-7.0.0.tgz#3db844cd3900cbfc3520f973daf7fe4dc281495d"
-  integrity sha512-5QgqABb8ULqQtHNvCNXnBlzjKfILXrdZkq/xcnGL1aM1EmrY7xlUQQ/WLYnxno0gw/QQwCE5tH7sFfFUhIn8CA==
+ng-click-outside@^5.1.1:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/ng-click-outside/-/ng-click-outside-5.3.0.tgz#7e53889adb041f8f19b6af84bdb56a373638bb54"
+  integrity sha512-+WYtu2hSQy0F6VlHOqKhPtdVJimTiXXNtZPBGfLORJNX71ieYGsentke8KG+8EudR36FUB6Ya9g2GwGXM0UqdA==
 
 ng-swagger-gen@^2.3.0:
   version "2.3.0"
