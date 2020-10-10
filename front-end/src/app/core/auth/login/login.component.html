@@ -1,1 +1,57 @@
-Login
+<div class="grid-container--fluid">
+  <div class="row">
+    <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+      <div class="login-container">
+        <h3 class="auth-logo">Digital <span>112</span></h3>
+        <h1 class="auth-title">Login</h1>
+
+        <div class="input-field input-field--margin-bottom">
+          <label class="input-field__label" for="email">Email</label>
+          <input class="input-field__input"
+                 type="text"
+                 id="email">
+        </div>
+
+        <div class="input-field">
+          <label class="input-field__label" for="password">Password</label>
+          <input class="input-field__input"
+                 type="password"
+                 id="password">
+        </div>
+
+        <button type="submit"
+                class="button auth-button"
+                [routerLink]="'/app/dashboard'">
+          Login
+        </button>
+
+        <p class="auth-text">Forgot your password? <a href="#">Change it!</a></p>
+      </div>
+    </div>
+    <div class="col col-lg-8 col-md-7 col-sm-6 col-xs-12 product-container">
+      <div class="product-information">
+        <div class="product-information__container">
+          <div class="product-item"
+               *ngFor="let informationItem of informationItems; let i = index"
+               [ngClass]="{'product-item--active': activeIndex === i }">
+            <h5>{{ informationItem.title}}</h5>
+            <p>{{ informationItem.description }}</p>
+          </div>
+
+          <div class="product-information__progress">
+            <div (click)="switchItem(i)"
+                 *ngFor="let informationItem of informationItems; let i = index"
+                 [ngClass]="{ 'product-information__progress-item--active': i === activeIndex }"
+                 class="product-information__progress-item"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-container__shapes">
+        <div *ngFor="let shape of shapes"
+             class="product-shape product-shape--{{ shape.borderDirection }}"
+             [ngStyle]="{'background': shape.color}"></div>
+      </div>
+    </div>
+  </div>
+</div>

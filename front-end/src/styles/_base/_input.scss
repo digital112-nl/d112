@@ -1,0 +1,34 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+
+  font-family: neue-haas-grotesk-display, sans-serif;
+  font-style: normal;
+
+  &--margin-bottom {
+    margin-bottom: 24px;
+  }
+
+  &__label {
+    @include font(16, 500);
+    color: $text-default;
+
+    margin-bottom: 12px;
+  }
+
+  &__input {
+    height: 50px;
+    border-radius: 8px;
+    padding: 0 16px;
+
+    border: none;
+    outline: none;
+
+    @include font(14, 500);
+    background: $input-background;
+    color: $text-default;
+
+    transition: background-color .25s ease-out;
+  }
+}
+
