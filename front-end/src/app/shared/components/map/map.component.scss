@@ -81,11 +81,11 @@
 
     ::ng-deep {
       .leaflet-top {
-        top: 90px;
+        top: 180px;
       }
 
       .leaflet-right {
-        right: 24px; // since leaflet has 10 px on right margin
+        right: 6px; // since leaflet has 10 px on right margin
       }
 
       .leaflet-tooltip {
@@ -108,13 +108,13 @@
     }
   }
 
-  &.miniMap .map-instance ::ng-deep {
+  &.full-map .map-instance ::ng-deep {
     .leaflet-top {
-      top: 10px;
+      top: 90px;
     }
 
     .leaflet-right {
-      right: 10px; // since leaflet has 10 px on right margin
+      right: 24px; // since leaflet has 10 px on right margin
     }
   }
 }

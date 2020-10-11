@@ -13,5 +13,34 @@
       border-radius: 32px;
       overflow: hidden;
     }
+
+    .dashboard-map__tiles {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      padding: 1rem;
+      z-index: 1000;
+      user-select: none;
+      pointer-events: none;
+
+      &-tile {
+        border-radius: 16px;
+        padding: 24px;
+        box-sizing: border-box;
+        background: $dashboard-item-background;
+
+        &-value {
+          @include font(60, 600);
+          color: $text-default;
+          margin: 0;
+        }
+
+        &-key {
+          @include font(18, 500);
+          color: $text-default;
+          margin: 0;
+        }
+      }
+    }
   }
 }
