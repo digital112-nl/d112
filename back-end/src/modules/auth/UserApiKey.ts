@@ -28,7 +28,8 @@ export class UserApiKey {
             salt: '135',
             timestampMap: 'a682nfkaod'
         })
-        userApiKey.validUntil = new Date();
+        const currentDate = new Date
+        userApiKey.validUntil = new Date( currentDate.setDate( currentDate.getDate() + 1 ) );
         userApiKey.token =  TokenGenerator.generate();
         userApiKey.createdAt = new Date();
         next();

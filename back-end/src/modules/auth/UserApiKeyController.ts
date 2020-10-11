@@ -5,7 +5,7 @@ import { UserApiKey, authenticate } from './UserApiKey';
 import { User } from './user/User';
 import { AuthenticationService } from './services/AuthenticationService';
 
-@Controller('')
+@Controller('/auth')
 export class UserApiKeyController {
   @ContentType('application/json')
   @Inject(UserApiKey)
@@ -25,11 +25,18 @@ export class UserApiKeyController {
       }
   }
 
-  @Get('/sessie/:id')
+  @Get('/session')
   @Returns(UserApiKey)
-  findOne(@PathParams('id') id: string) {
-    return this.userApiKeyModel.findById(id)
-      .exec();
+  findOne(@HeaderParams() headers: any) {
+      if (headers.authorization != null) {
+      const token = (headers.authorization.split(' '))[1]
+      return this.userApiKeyModel.findOne({
+        token: token
+    }).exec();
+    }
+    else {
+      throw "authorization header is missing"
+    }
   }
   
 }

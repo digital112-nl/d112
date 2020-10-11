@@ -14,11 +14,6 @@ export class UserCreateUpdate {
     public password: string;
 }
 
-export class GetUser {
-    @Required()
-    public email: string;
-}
-
 @Model({
     schemaOptions: {
         timestamps: true

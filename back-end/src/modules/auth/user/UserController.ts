@@ -12,7 +12,7 @@ export class UserController {
 
   @Post('/register')
   @Returns(User)
-  async postPayload(@BodyParams() payload: UserCreateUpdate) {
+  async register(@BodyParams() payload: UserCreateUpdate) {
     const user = new this.userModel({
         firstName: payload.firstName,
         lastName: payload.lastName,

@@ -12,10 +12,15 @@ export class AuthenticationService {
     private userModel: MongooseModel<User>;
 
     public async getUserByToken(token: string): Promise<User|null> {
-        const userApiKey: UserApiKey = await this.userApiKeyModel.findOne({
+        var userApiKey: UserApiKey = await this.userApiKeyModel.findOne({
             token,
-        }).populate('user').exec();
-        return userApiKey?.user as User;
+        } as UserApiKey )
+        if(userApiKey.validUntil < (new Date)) {
+            throw "your token is invalid please create a new one"
+        } else {
+            return userApiKey.user as User;
+        }
+
     }
 
     public async authenticate(headers: authenticate): Promise<UserApiKey|null> {
