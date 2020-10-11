@@ -15,7 +15,8 @@
   <i class="di-icon di-small-down" [ngClass]="{'di-icon-rotate-180': isDropDownActive}"></i>
 
   <div class="top-bar__dropdown" *ngIf="isDropDownActive">
-    <a class="top-bar__dropdown-item">
+    <a class="top-bar__dropdown-item"
+       [routerLink]="'/auth/logout'">
       <i class="di-icon di-move-layer-left-1"></i>
       <span>Logout</span>
     </a>

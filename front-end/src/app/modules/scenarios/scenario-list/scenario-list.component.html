@@ -1,0 +1,27 @@
+<div class="scenario-list__header">
+  <h2>Scenarios</h2>
+  <a [routerLink]="'/app/scenarios'">View all</a>
+</div>
+
+<div class="scenario-list__container">
+  <div *ngFor="let scenario of scenarioList" class="scenario-list__item">
+    <div class="scenario-list__item-icon">
+      {{ scenario.category }}
+    </div>
+
+    <div class="scenario-list__item-information">
+      <p class="item-information__title">
+        {{ scenario.title }}
+      </p>
+      <div class="item-information__wrapper">
+        <span class="item-information__prio item-information__prio--{{ scenario.prio | prio : true }}">
+          <i class="di-icon di-{{ scenario.prio | prio : false : true }}"></i>
+          {{ scenario.prio | prio }}
+        </span>
+        <span class="item-information__time">
+          {{ scenario.time | timeago }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

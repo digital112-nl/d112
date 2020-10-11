@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { AuthRoutes } from './auth.routes';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { LoginComponent } from './login/login.component';
     AuthRoutes
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   providers: [
     AuthGuard
