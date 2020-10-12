@@ -24,7 +24,16 @@ import * as methodOverride from 'method-override';
     }
   },
   swagger: {
-    path: '/api-docs'
+    path: '/api-docs',
+    spec: {
+      securityDefinitions: {
+        'token': {
+          'type': 'apiKey',
+          'name': 'X-User-Token',
+          'in': 'header'
+        }
+      }
+    }
   },
   mount: {
     '/api/v1': './src/modules/**/*Controller.ts'
