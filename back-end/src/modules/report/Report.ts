@@ -22,6 +22,10 @@ export class Report {
   public _id: string;
   @Property()
   public identifier: string;
+  @Property()
+  public caller: string;
+  @Property()
+  public callStatus: string;
   @Enum(EmergencyResponseType)
   public responseType: EmergencyResponseType;
   @Enum(ReportMode)

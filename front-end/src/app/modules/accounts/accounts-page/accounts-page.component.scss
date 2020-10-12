@@ -1,0 +1,7 @@
+// This will be included by all components
+@import "component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+}

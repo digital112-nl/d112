@@ -6,6 +6,7 @@ import { ApiModule } from './api/api.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { ModulesModule } from './modules/modules.module';
 import { ROOT_URL } from './root-url';
 import { ReportSocketService } from './shared/services/report-socket.service';
@@ -22,7 +23,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: ROOT_URL })
+    ApiModule.forRoot({ rootUrl: ROOT_URL }),
+    CoreModule
   ],
   providers: [
     ReportSocketService

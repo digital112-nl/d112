@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '../../shared/shared.module';
+import { ScenariosModule } from '../scenarios/scenarios.module';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { TimeagoModule } from 'ngx-timeago';
 
@@ -10,7 +11,9 @@ import { TimeagoModule } from 'ngx-timeago';
     CommonModule,
     SharedModule,
     MatTooltipModule,
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+
+    ScenariosModule
   ],
   declarations: [
     DashboardPageComponent

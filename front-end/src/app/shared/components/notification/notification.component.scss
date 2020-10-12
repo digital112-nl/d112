@@ -1,0 +1,203 @@
+@import "component";
+
+//@mixin notificationColor($primaryColor, $secondaryColor: white) {
+//  background: $primaryColor;
+//
+//  .notification__content {
+//    color: $secondaryColor;
+//
+//
+//    .notification__state .notification__timer {
+//      @include timerColor($secondaryColor);
+//
+//      .mat-progress-spinner circle, .mat-spinner circle {
+//        stroke: $secondaryColor;
+//      }
+//    }
+//  }
+//}
+
+@keyframes fadeIn {
+  0% {
+    margin-left: 105%;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    max-height: 300px;
+    margin-bottom: 15px;
+  }
+  50% {
+    opacity: 0;
+    max-height: 300px;
+    margin-bottom: 15px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+:host {
+  position: fixed;
+  top: 90px;
+  right: 0;
+
+  z-index: 2000;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 300px;
+
+  overflow: hidden;
+
+  padding: 10px 14px 10px 10px;
+
+  pointer-events: none;
+}
+
+.notification {
+  display: flex;
+  flex-direction: column;
+  background: $side-bar-item;
+  overflow: hidden;
+
+  pointer-events: auto;
+
+  margin-left: 0;
+  margin-bottom: 15px;
+
+  min-width: 280px;
+  max-width: 280px;
+  height: 85px;
+
+  border-radius: 20px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+
+  animation: fadeIn .25s ease-out;
+
+  .notification__content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    color: $text-default;
+    padding: 0 16px;
+
+    .notification__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      background: #F19292;
+
+      @include font(18);
+      margin-right: 16px;
+    }
+
+    .notification__text {
+      @include font(16);
+      flex: 1;
+
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      padding: 10px 0;
+      margin-right: 16px;
+
+      .notification__header {
+        @include font(14);
+        color: $text-default;
+        font-weight: 300;
+
+        margin-bottom: 6px;
+      }
+    }
+
+    .notification__state {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      position: relative;
+
+      .notification__timer {
+        opacity: 1;
+
+        transition: opacity .10s ease-out;
+
+        .mat-progress-spinner circle,
+        .mat-spinner circle {
+          stroke: $text-link;
+        }
+      }
+
+      .notification__close {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        cursor: pointer;
+        opacity: 0;
+        @include font(14);
+
+        transition: opacity .10s ease-out;
+      }
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &--red {
+    //@include notificationColor($tint-2);
+  }
+
+  &--yellow {
+    //@include notificationColor($tint-5);
+  }
+
+  &--green {
+    //@include notificationColor($tint-6);
+
+    .notification__header {
+      color: rgba($text-default, .75) !important;
+    }
+
+    .timer {
+      border-top-color: $text-default !important;
+    }
+  }
+
+  &--hide {
+    opacity: 0;
+    max-height: 0;
+    pointer-events: none;
+    margin-bottom: 0;
+    animation: fadeOut .75s ease-out;
+  }
+
+  &:hover {
+    .notification__content .notification__state {
+      .notification__timer {
+        opacity: 0;
+      }
+
+      .notification__close {
+        opacity: 1;
+      }
+    }
+  }
+}

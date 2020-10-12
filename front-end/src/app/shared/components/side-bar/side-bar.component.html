@@ -1,0 +1,42 @@
+<div [ngClass]="{ 'side-bar--closed': sideBarService.isClosed }" class="side-bar">
+  <div class="side-bar__logo-container">
+    <h1 class="side-bar__logo side-bar__logo--full">
+      Digital <span>112</span>
+    </h1>
+    <h1 class="side-bar__logo side-bar__logo--small">
+      D<span>112</span>
+    </h1>
+  </div>
+
+  <div class="side-bar__menu-container">
+    <div class="side-bar__tabs">
+      <ng-container
+        *ngFor="let sideBarContainer of sideBarFormat; trackBy: trackByFn">
+        <div class="side-bar__container">
+          <ng-container
+            *ngFor="let sideBarItem of sideBarContainer.items; trackBy: trackByFn">
+            <a [id]="sideBarItem.key"
+               [ngClass]="{ 'side-bar__tab--disabled': sideBarItem.disabled }"
+               [routerLinkActive]="'side-bar__tab--active'"
+               [routerLink]="sideBarItem.routerLink"
+               class="side-bar__tab"
+               title="{{ sideBarItem.key }}">
+              <i class="di-icon di-{{ sideBarItem.icon }}"></i>
+              <span>{{ sideBarItem.key }}</span>
+            </a>
+          </ng-container>
+
+          <span *ngIf="sideBarContainer.divider" class="side-bar__container-divider"></span>
+        </div>
+      </ng-container>
+
+      <div (click)="sideBarService.toggleSideBar()"
+           class="side-bar__tab side-bar__tab--bottom"
+           title="Close sidebar">
+        <i [ngClass]="{ 'di-move-layer-right-2': sideBarService.isClosed, 'di-move-layer-left-2': !sideBarService.isClosed }"
+           class="di-icon"></i>
+        <span>Close</span>
+      </div>
+    </div>
+  </div>
+</div>

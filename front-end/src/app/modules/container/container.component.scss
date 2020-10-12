@@ -3,4 +3,11 @@
 
 :host {
   display: flex;
+  background: $background-color;
+
+  .page-content {
+    position: relative;
+    width: 100%;
+    padding: 0 32px;
+  }
 }

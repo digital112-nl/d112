@@ -1,0 +1,24 @@
+<h1 class="top-bar__title">
+  {{ topBarService.pageTitle }}
+</h1>
+<div class="top-bar__user"
+     (click)="isDropDownActive = !isDropDownActive"
+     (clickOutside)="isDropDownActive = false"
+     [attachOutsideOnClick]="true">
+  <div class="top-bar__user-initials">
+    W
+  </div>
+  <div class="top-bar__user-name">
+    Wesley
+  </div>
+
+  <i class="di-icon di-small-down" [ngClass]="{'di-icon-rotate-180': isDropDownActive}"></i>
+
+  <div class="top-bar__dropdown" *ngIf="isDropDownActive">
+    <a class="top-bar__dropdown-item"
+       [routerLink]="'/auth/logout'">
+      <i class="di-icon di-move-layer-left-1"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</div>

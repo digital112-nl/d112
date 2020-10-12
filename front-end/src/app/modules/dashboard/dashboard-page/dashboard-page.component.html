@@ -1,2 +1,31 @@
-<h1>Dashboard</h1>
-<p>Response from API: {{data| json}}</p>
+<div class="grid">
+  <div class="row">
+    <div class="col col-lg-9 col-md-7 col-sm-7 col-xs-12 map-container">
+
+      <div class="row dashboard-map__tiles">
+        <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <div class="dashboard-map__tiles-tile">
+            <h3 class="dashboard-map__tiles-tile-value">12</h3>
+            <p class="dashboard-map__tiles-tile-key">New scenarios</p>
+          </div>
+        </div>
+        <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <div class="dashboard-map__tiles-tile">
+            <h3 class="dashboard-map__tiles-tile-value">4</h3>
+            <p class="dashboard-map__tiles-tile-key">Emergencies</p>
+          </div>
+        </div>
+        <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <div class="dashboard-map__tiles-tile">
+            <h3 class="dashboard-map__tiles-tile-value">2</h3>
+            <p class="dashboard-map__tiles-tile-key">Fires</p>
+          </div>
+        </div>
+      </div>
+      <di-map></di-map>
+    </div>
+    <div class="col col-lg-3 col-md-5 col-sm-5 col-xs-12">
+      <di-scenario-list></di-scenario-list>
+    </div>
+  </div>
+</div>

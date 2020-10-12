@@ -1,0 +1,143 @@
+/*------------------------
+	icons
+-------------------------*/
+@function unicode($str) {
+  @return unquote("\"\\#{$str}\"");
+}
+
+$di-house-1: unicode(ea02);
+$di-house-2: unicode(ea03);
+$di-world-1: unicode(ea04);
+$di-world-2: unicode(ea05);
+$di-hierarchy-55-1: unicode(ea06);
+$di-hierarchy-55-2: unicode(ea07);
+$di-multiple-11-1: unicode(ea08);
+$di-multiple-11-2: unicode(ea09);
+$di-gear-1: unicode(ea0a);
+$di-gear-2: unicode(ea0b);
+$di-move-layer-left-1: unicode(ea0c);
+$di-move-layer-right-1: unicode(ea0d);
+$di-move-layer-right-2: unicode(ea0e);
+$di-move-layer-left-2: unicode(ea0f);
+$di-small-down: unicode(ea10);
+$di-alarm-1: unicode(ea11);
+$di-alarm-2: unicode(ea12);
+$di-zoom: unicode(ea13);
+$di-priority-normal: unicode(ea14);
+$di-priority-high: unicode(ea15);
+$di-priority-lowest: unicode(ea16);
+$di-priority-low: unicode(ea17);
+$di-priority-highest: unicode(ea18);
+$di-i-remove: unicode(ea19);
+$di-e-remove: unicode(ea1a);
+$di-trash-can-1: unicode(ea1b);
+$di-trash-can-2: unicode(ea1c);
+
+.di-house-1::before {
+  content: $di-house-1;
+}
+
+.di-house-2::before {
+  content: $di-house-2;
+}
+
+.di-world-1::before {
+  content: $di-world-1;
+}
+
+.di-world-2::before {
+  content: $di-world-2;
+}
+
+.di-hierarchy-55-1::before {
+  content: $di-hierarchy-55-1;
+}
+
+.di-hierarchy-55-2::before {
+  content: $di-hierarchy-55-2;
+}
+
+.di-multiple-11-1::before {
+  content: $di-multiple-11-1;
+}
+
+.di-multiple-11-2::before {
+  content: $di-multiple-11-2;
+}
+
+.di-gear-1::before {
+  content: $di-gear-1;
+}
+
+.di-gear-2::before {
+  content: $di-gear-2;
+}
+
+.di-move-layer-left-1::before {
+  content: $di-move-layer-left-1;
+}
+
+.di-move-layer-right-1::before {
+  content: $di-move-layer-right-1;
+}
+
+.di-move-layer-right-2::before {
+  content: $di-move-layer-right-2;
+}
+
+.di-move-layer-left-2::before {
+  content: $di-move-layer-left-2;
+}
+
+.di-small-down::before {
+  content: $di-small-down;
+}
+
+.di-alarm-1::before {
+  content: $di-alarm-1;
+}
+
+.di-alarm-2::before {
+  content: $di-alarm-2;
+}
+
+.di-zoom::before {
+  content: $di-zoom;
+}
+
+.di-priority-normal::before {
+  content: $di-priority-normal;
+}
+
+.di-priority-high::before {
+  content: $di-priority-high;
+}
+
+.di-priority-lowest::before {
+  content: $di-priority-lowest;
+}
+
+.di-priority-low::before {
+  content: $di-priority-low;
+}
+
+.di-priority-highest::before {
+  content: $di-priority-highest;
+}
+
+.di-i-remove::before {
+  content: $di-i-remove;
+}
+
+.di-e-remove::before {
+  content: $di-e-remove;
+}
+
+.di-trash-can-1::before {
+  content: $di-trash-can-1;
+}
+
+.di-trash-can-2::before {
+  content: $di-trash-can-2;
+}
+

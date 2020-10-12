@@ -1,0 +1,163 @@
+@import "component";
+
+:host {
+  overflow: hidden;
+}
+
+.login-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: $auth-background-color;
+  height: 100vh;
+  max-width: 450px;
+  padding-left: 16px;
+  margin: 0 auto;
+
+  .auth-logo {
+    position: absolute;
+    top: 80px;
+
+    @include font(32, 800);
+    font-family: 'Darker Grotesque', sans-serif;
+    color: $text-default;
+
+    span {
+      @include font(32, bold);
+      color: $text-link;
+    }
+  }
+
+  .auth-title {
+    margin: 0 0 38px 0;
+    @include font(48, bold);
+    font-family: 'Darker Grotesque', sans-serif;
+  }
+
+  .auth-button {
+    margin: 55px 0 65px;
+  }
+
+  .auth-text {
+    margin: 0;
+    @include font(16, 500);
+    color: $text-default;
+    text-align: center;
+
+    a {
+      color: $text-link;
+      text-decoration: none;
+    }
+  }
+}
+
+.product-container {
+  position: relative;
+  background: $auth-product-background-color;
+  height: 100vh;
+
+  .product-information {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 600px;
+    width: 100%;
+
+    text-align: center;
+    color: $text-white;
+
+    z-index: 1;
+
+    &__container {
+      position: relative;
+    }
+
+    .product-item {
+      position: absolute;
+      bottom: 0;
+      opacity: 0;
+      transition: opacity .15s ease-out;
+      margin-bottom: 32px;
+
+
+      h5 {
+        margin: 0 0 16px;
+        @include font(20, 600);
+      }
+
+      p {
+        margin: 0;
+        line-height: 24px;
+        @include font(16, 500);
+      }
+
+      &--active {
+        opacity: 1;
+        transition-delay: .25s;
+      }
+    }
+
+    &__progress {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      margin-top: 32px;
+
+      &-item {
+        height: 8px;
+        width: 8px;
+        border-radius: 4px;
+        background: $button-default;
+
+        margin-right: 12px;
+        cursor: pointer;
+        transition: background .15s ease-out;
+
+        &--active {
+          background: $button-cta;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  &__shapes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    user-select: none;
+    pointer-events: none;
+
+    margin-left: -16px;
+
+    .product-shape {
+      height: 25vh;
+      flex-basis: 25%;
+      max-width: 25%;
+      opacity: .25;
+
+      &--top-left {
+        border-top-left-radius: 100%;
+      }
+
+      &--top-right {
+        border-top-right-radius: 100%;
+      }
+
+      &--bottom-left {
+        border-bottom-left-radius: 100%;
+      }
+
+      &--bottom-right {
+        border-bottom-right-radius: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+@import "component";
+
+:host {
+  display: flex;
+  position: relative;
+
+  height: 60px;
+  width: 100%;
+  margin: 21px 0 50px;
+
+  z-index: 10;
+
+  .top-bar {
+
+    &__title {
+      display: flex;
+      align-items: center;
+
+      @include font(24, 600);
+      color: $text-default;
+
+      margin: 0;
+
+      flex: 1 1 auto;
+      transition: color .1s ease-out;
+
+      &-nesting {
+        @include font(16);
+        color: $text-gray;
+        margin-top: 5px;
+
+        &--slash {
+          margin: 5px 16px 0;
+        }
+      }
+    }
+
+    &__user {
+      position: relative;
+      display: flex;
+      margin-left: auto;
+
+      cursor: pointer;
+
+      &-initials {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+
+        height: 60px;
+        width: 60px;
+        min-width: 60px;
+        border-radius: 20px;
+
+        background-color: $text-white;
+        border: 2px solid $border-default;
+        user-select: none;
+
+        @include font(24, 600);
+        color: $text-gray;
+
+        margin-right: 12px;
+      }
+
+      &-name {
+        display: flex;
+        align-items: center;
+
+        @include font(16, 600);
+        color: $text-default;
+
+        margin-right: 10px;
+      }
+
+      .di-icon {
+        display: flex;
+        align-items: center;
+        margin-top: 2px;
+
+        @include font(16, 600);
+        color: $text-default;
+
+        transition: transform .15s ease-out;
+      }
+
+      .top-bar__dropdown {
+        position: absolute;
+        top: 80px;
+        right: 0;
+
+        background: $side-bar-background;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .03);
+        border-radius: 8px;
+
+        min-width: 170px;
+
+        &-item {
+          display: flex;
+          align-items: center;
+          padding: 0 16px;
+
+          height: 35px;
+          color: $text-default;
+          @include font(14);
+
+          user-select: none;
+          text-decoration: none;
+          transition: color .25s ease-out;
+
+          .di-icon {
+            @include font(14);
+            transition: color .25s ease-out;
+            margin-right: 12px;
+          }
+
+          &:first-child {
+            margin-top: 6px;
+          }
+
+          &:last-child {
+            margin-bottom: 6px;
+          }
+
+          &:hover {
+            color: $text-link;
+
+            .di-icon {
+              color: $text-link;
+            }
+          }
+        }
+      }
+    }
+  }
+}
