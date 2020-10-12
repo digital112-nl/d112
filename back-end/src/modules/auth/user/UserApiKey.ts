@@ -1,6 +1,6 @@
 import { Property, Required } from '@tsed/common';
 import { Model, ObjectID, PreHook, Ref, Unique } from '@tsed/mongoose';
-import { User } from './user/User';
+import { User } from './User';
 
 const TokenGenerator = require('token-generator')({
   salt: '135',
