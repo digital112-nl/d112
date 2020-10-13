@@ -1,0 +1,13 @@
+@import "component";
+
+:host {
+  .map-container {
+    position: relative;
+    height: 30vh;
+
+    di-map {
+      border-radius: 32px;
+      overflow: hidden;
+    }
+  }
+}

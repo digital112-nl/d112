@@ -4,7 +4,8 @@
 </div>
 
 <div class="scenario-list__container">
-  <div *ngFor="let scenario of scenarioList" class="scenario-list__item">
+  <div *ngFor="let scenario of scenarioList" class="scenario-list__item"
+       [routerLink]="'/app/scenarios/1'">
     <div class="scenario-list__item-icon">
       {{ scenario.category }}
     </div>
