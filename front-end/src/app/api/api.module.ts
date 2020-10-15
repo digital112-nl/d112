@@ -3,7 +3,10 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
-import { TestControllerService } from './services/test-controller.service';
+import { AuthenticationControllerService } from './services/authentication-controller.service';
+import { IntentControllerService } from './services/intent-controller.service';
+import { ReportControllerService } from './services/report-controller.service';
+import { TwilioControllerService } from './services/twilio-controller.service';
 
 /**
  * Provider for all Api services, plus ApiConfiguration
@@ -18,7 +21,10 @@ import { TestControllerService } from './services/test-controller.service';
   declarations: [],
   providers: [
     ApiConfiguration,
-    TestControllerService
+    AuthenticationControllerService,
+    IntentControllerService,
+    ReportControllerService,
+    TwilioControllerService
   ],
 })
 export class ApiModule {

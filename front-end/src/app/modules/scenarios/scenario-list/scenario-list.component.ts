@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Report } from '../../../api/models';
 
 export enum ScenarioPrio {
   Emergency = 0,
@@ -20,31 +21,5 @@ export interface ScenarioListItem {
   styleUrls: [ './scenario-list.component.scss' ]
 })
 export class ScenarioListComponent {
-
-  public scenarioList: ScenarioListItem[] = [
-    {
-      category: '🔥',
-      title: 'Fire in building',
-      prio: ScenarioPrio.Emergency,
-      time: Date.now()
-    },
-    {
-      category: '🔥',
-      title: 'Fire in building',
-      prio: ScenarioPrio.High,
-      time: Date.now() - 60000
-    },
-    {
-      category: '🔥',
-      title: 'Fire in building',
-      prio: ScenarioPrio.Medium,
-      time: Date.now() - 200000
-    },
-    {
-      category: '🔥',
-      title: 'Fire in building',
-      prio: ScenarioPrio.Low,
-      time: Date.now() - 400000
-    }
-  ];
+  @Input() reports: Report[] = [];
 }

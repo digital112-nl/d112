@@ -10,8 +10,8 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-class TestControllerService extends __BaseService {
-  static readonly TestControllerExamplePath = '/api/v1/test';
+class IntentControllerService extends __BaseService {
+  static readonly IntentControllerExamplePath = '/api/v1/intents';
 
   constructor(
     config: __Configuration,
@@ -23,13 +23,13 @@ class TestControllerService extends __BaseService {
   /**
    * @return Success
    */
-  TestControllerExampleResponse(): __Observable<__StrictHttpResponse<string>> {
+  IntentControllerExampleResponse(): __Observable<__StrictHttpResponse<string>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/api/v1/test`,
+      this.rootUrl + `/api/v1/intents`,
       __body,
       {
         headers: __headers,
@@ -47,14 +47,14 @@ class TestControllerService extends __BaseService {
   /**
    * @return Success
    */
-  TestControllerExample(): __Observable<string> {
-    return this.TestControllerExampleResponse().pipe(
+  IntentControllerExample(): __Observable<string> {
+    return this.IntentControllerExampleResponse().pipe(
       __map(_r => _r.body as string)
     );
   }
 }
 
-module TestControllerService {
+module IntentControllerService {
 }
 
-export { TestControllerService }
+export { IntentControllerService }

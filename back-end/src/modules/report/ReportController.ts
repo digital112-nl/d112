@@ -1,14 +1,11 @@
 import { ContentType, Controller, Get, PathParams, Returns, ReturnsArray, Req, Use } from '@tsed/common';
 import { Inject } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
-import { RequestWithUser } from '../auth/models/RequestWithUser';
 import { Report } from './Report';
 import { ReportMessage } from './ReportMessage';
-import { AuthenticationMiddleware} from '../auth/AuthenticationMiddleware';
 
 
 @Controller('/reports')
-@Use(AuthenticationMiddleware)
 export class ReportController {
   @ContentType('application/json')
   @Inject(Report)
@@ -19,6 +16,7 @@ export class ReportController {
   findAll() {
     return this.reportModel.find()
       .populate('messages')
+      .sort('-createdAt')
       .exec();
   }
 
