@@ -5,7 +5,7 @@
 
 <div class="scenario-list__container">
   <div *ngFor="let report of reports" class="scenario-list__item"
-       [routerLink]="'/app/scenarios/1'">
+       [routerLink]="'/app/scenarios/' + report._id">
     <div class="scenario-list__item-icon">
       🚨
     </div>

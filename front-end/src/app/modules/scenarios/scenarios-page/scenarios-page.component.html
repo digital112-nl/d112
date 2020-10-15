@@ -1,5 +1,6 @@
 <div class="scenario-list__container">
-  <div *ngFor="let report of reports" class="scenario-list__item">
+  <div *ngFor="let report of reports" [routerLink]="'/app/scenarios/' + report._id"
+       class="scenario-list__item">
     <div class="scenario-list__item-icon">
       🚨
     </div>
