@@ -4,6 +4,7 @@ import { AccountsPageComponent } from './accounts/accounts-page/accounts-page.co
 import { ContainerComponent } from './container/container.component';
 import { DashboardPageComponent } from './dashboard/dashboard-page/dashboard-page.component';
 import { MapPageComponent } from './map/map-page/map-page.component';
+import { ScenarioDetailPageComponent } from './scenarios/scenario-detail-page/scenario-detail-page.component';
 import { ScenariosPageComponent } from './scenarios/scenarios-page/scenarios-page.component';
 import { SettingsPageComponent } from './settings/settings-page/settings-page.component';
 
@@ -27,7 +28,17 @@ const routes: Routes = [
       },
       {
         path: 'scenarios',
-        component: ScenariosPageComponent
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: ScenariosPageComponent
+          },
+          {
+            path: ':scenarioId',
+            component: ScenarioDetailPageComponent
+          }
+        ]
       },
       {
         path: 'accounts',
