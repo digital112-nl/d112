@@ -13,6 +13,7 @@ import { ReportSocketService } from '../../../shared/services/report-socket.serv
 })
 export class DashboardPageComponent implements OnDestroy {
   public reports: Array<Report>;
+  public totalReportCount = 0;
   private subscription: Subscription;
 
   constructor(
@@ -38,7 +39,10 @@ export class DashboardPageComponent implements OnDestroy {
 
   public getReports() {
     this.reportControllerService.ReportControllerFindAll()
-      .subscribe((reports) => this.reports = reports.slice(0, 5));
+      .subscribe((reports) => {
+        this.totalReportCount = reports.length;
+        this.reports = reports.slice(0, 5);
+      });
   }
 
   public ngOnDestroy(): void {
