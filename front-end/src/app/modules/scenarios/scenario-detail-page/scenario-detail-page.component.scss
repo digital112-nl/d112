@@ -10,4 +10,12 @@
       overflow: hidden;
     }
   }
+
+  .scenario-activity__container {
+    h2 {
+      @include font(24, 600);
+      color: $text-default;
+      margin: 0 0 16px;
+    }
+  }
 }

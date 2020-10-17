@@ -1,0 +1,20 @@
+<ng-container *ngFor="let activity of activities">
+<span class="activity-status">
+  {{ activity.status }}
+</span>
+  <div class="activity-item">
+    <div class="activity-item__icon">
+      🚨
+    </div>
+
+    <div class="activity-item__information">
+      <p class="activity-item__information-title">
+        {{ activity.message }}
+      </p>
+      <p class="activity-item__information-time">
+        {{ activity.createdAt | timeago }}
+      </p>
+    </div>
+  </div>
+</ng-container>
+

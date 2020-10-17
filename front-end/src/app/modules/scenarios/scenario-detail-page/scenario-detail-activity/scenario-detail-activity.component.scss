@@ -1,0 +1,88 @@
+@import "component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .activity-status {
+    position: relative;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 12px;
+
+    color: $text-gray;
+    background: #D0CDCD;
+    @include font(14, 600);
+
+    margin: 18px 0;
+
+    &:before,
+    &:after {
+      content: ' ';
+      position: absolute;
+      width: 1px;
+      height: 14px;
+      background: #D0CDCD;
+      left: 20px;
+    }
+
+    &:before {
+      top: -16px;
+    }
+
+    &:after {
+      bottom: -16px;
+    }
+
+    &:first-of-type {
+      margin: 0 0 18px;
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  .activity-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 64px;
+    border-radius: 20px;
+    padding: 12px;
+    box-sizing: border-box;
+    background: $scenario-item-background;
+
+    overflow: hidden;
+
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      background: #F19292;
+      border-radius: 12px;
+      @include font(14);
+
+      margin-right: 12px;
+    }
+
+    &__information {
+      &-title {
+        margin: 0 0 4px;
+        color: $text-default;
+        @include font(14, 600);
+      }
+
+      &-time {
+        margin: 0;
+        color: $text-gray;
+        @include font(12);
+      }
+    }
+  }
+}
