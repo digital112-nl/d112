@@ -7,7 +7,7 @@ import { Report } from './Report';
     timestamps: true
   }
 })
-export class ReportMessage {
+export class ReportCallMessage {
   @Property()
   public _id: string;
   @VirtualRef('Report')

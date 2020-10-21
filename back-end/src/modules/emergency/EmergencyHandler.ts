@@ -64,7 +64,7 @@ export class EmergencyHandler {
 
   protected internalGetReport(identifier: string) {
     return this.reportModel.findOne({ identifier })
-      .populate('messages')
+      .populate('callMessages')
       .exec();
   }
 }

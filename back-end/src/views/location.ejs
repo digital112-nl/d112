@@ -1,0 +1,27 @@
+<h1>We would like your location...</h1>
+<p>Sending to <%- url %></p>
+<script>
+    var options = { maximumAge: 3000, timeout: 300000, enableHighAccuracy: true }
+    navigator.geolocation.getCurrentPosition(function (position) {
+        const coords = {
+            accuracy: position.coords.accuracy,
+            altitude: position.coords.altitude,
+            altitudeAccuracy: position.coords.altitudeAccuracy,
+            heading: position.coords.heading,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            speed: position.coords.speed,
+        };
+
+        fetch("<%- url %>", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: `${JSON.stringify(coords)}`
+        }).then(function () {
+            setTimeout(() => window.close(), 1000)
+        });
+    }, (err) => alert('Error' + err), options);
+</script>

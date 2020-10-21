@@ -3,7 +3,8 @@ import { Document } from 'mongoose';
 import Message from '../../emergency/handlers/speech/messages/Message';
 import UnknownPleaseTalkAgain from '../../emergency/handlers/speech/messages/UnknownPleaseTalkAgain';
 import { Report } from '../../report/Report';
-import { ReportMessageService } from '../../report/ReportMessageService';
+import { ReportCallMessageService } from '../../report/ReportCallMessageService';
+import { ReportLocationService } from '../../report/ReportLocationService';
 import { WitContext } from '../WitContext';
 import { DepartmentAi, WitAiIntent } from './DepartmentAi';
 import { isNil, find } from 'lodash';
@@ -13,8 +14,10 @@ import { Department, Departments, DepartmentCategory } from './Departments';
 export class DepartmentHandler {
   @Inject(DepartmentAi)
   private ai: DepartmentAi;
-  @Inject(ReportMessageService)
-  private reportMessageService: ReportMessageService;
+  @Inject(ReportCallMessageService)
+  private reportCallMessageService: ReportCallMessageService;
+  @Inject(ReportLocationService)
+  private reportLocationService: ReportLocationService;
 
   constructor() {
   }
@@ -34,7 +37,7 @@ export class DepartmentHandler {
       result.intents[ 0 ].name === 'unknown'
     ) {
       console.log('Unknown what was being said...');
-      await this.reportMessageService.sendMessage(report, UnknownPleaseTalkAgain().toString());
+      await this.reportCallMessageService.sendMessage(report, UnknownPleaseTalkAgain().toString());
       return;
     }
 
@@ -42,9 +45,9 @@ export class DepartmentHandler {
     const firstResult = result.intents[ 0 ];
     const { department, category } = this.getDepartmentAndCategory(firstResult);
 
-    const message = this.generateMessage(department, category);
+    const message = await this.generateMessage(report, department, category);
 
-    await this.reportMessageService.sendMessage(report, message.toString());
+    await this.reportCallMessageService.sendMessage(report, message.toString());
     console.log('message has been send');
   }
 
@@ -79,7 +82,8 @@ export class DepartmentHandler {
     }
   }
 
-  private generateMessage(
+  private async generateMessage(
+    report: Report & Document,
     department: Department,
     category: DepartmentCategory
   ) {
@@ -93,7 +97,8 @@ export class DepartmentHandler {
       const multiple = [ category.fire_department, category.police, category.ambulance ]
         .filter(bool => bool)
         .length > 1;
-      messages.push(`But before we can send the ${multiple ? 'services' : 'service'} to you, we are going to need your location.`);
+      messages.push(`But before we can send the ${multiple ? 'services' : 'service'} to you, we are going to need your location. Check your sms inbox for an sms message, click on the link that is provided.`);
+      await this.reportLocationService.sendLocationMessage(report);
     }
 
     return Message(messages.join('. '));

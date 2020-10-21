@@ -8,8 +8,6 @@ import KeepAliveMessage from './messages/KeepAliveMessage';
 import { TwilioEmergencyHandler } from './TwilioEmergencyHandler';
 import { TwilioVoiceMiddleware } from './TwilioVoiceMiddleware';
 
-const { BASE_URL } = process.env;
-
 @Controller('/twilio')
 export class TwilioController {
   @Inject(TwilioEmergencyHandler)
@@ -19,7 +17,6 @@ export class TwilioController {
   @Use(TwilioVoiceMiddleware)
   public async incomingCall(
     @BodyParams() params: ICallData,
-    @Req() req: Express.Request
   ) {
     const isAllowed = this.twilioEmergencyHandler.canCall(params);
 
@@ -55,8 +52,7 @@ export class TwilioController {
   @Post('/callback')
   @Use(TwilioVoiceMiddleware)
   public async incomingCallback(
-    @BodyParams() params: ICallbackData,
-    @Req() req: Express.Request
+    @BodyParams() params: ICallbackData
   ) {
     const { report } = await this.twilioEmergencyHandler.getReport(params[ 'CallSid' ]);
     report.callStatus = params.CallStatus;
@@ -67,8 +63,7 @@ export class TwilioController {
   @Post('/transcribe')
   @Use(TwilioVoiceMiddleware)
   public async incomingTranscribe(
-    @BodyParams() { CallSid, TranscriptionText }: ITranscriptionData,
-    @Req() req: Express.Request
+    @BodyParams() { CallSid, TranscriptionText }: ITranscriptionData
   ) {
     return this.twilioEmergencyHandler.handle(CallSid, TranscriptionText);
   }

@@ -5,7 +5,7 @@ import { Document } from 'mongoose';
 import { Twilio } from 'twilio';
 import { EmergencyHandler } from '../../EmergencyHandler';
 import { EmergencyResponseType, Report } from '../../../report/Report';
-import { ReportMessage } from '../../../report/ReportMessage';
+import { ReportCallMessage } from '../../../report/ReportCallMessage';
 import { ICallData } from './ICallData';
 import KeepAliveMessage from './messages/KeepAliveMessage';
 
@@ -22,8 +22,8 @@ export class TwilioEmergencyHandler extends EmergencyHandler {
   public isDisabled: boolean = isNil(TWILIO_ACCOUNT_SID) || isNil(TWILIO_AUTH_TOKEN);
 
   private client: Twilio = this.isDisabled ? null : new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
-  @Inject(ReportMessage)
-  private reportMessageModel: MongooseModel<ReportMessage>;
+  @Inject(ReportCallMessage)
+  private reportCallMessageModel: MongooseModel<ReportCallMessage>;
 
   public async getReport(
     identifier: string
@@ -68,17 +68,17 @@ export class TwilioEmergencyHandler extends EmergencyHandler {
   }
 
   public async findAndPlayMessage(report: Report & Document): Promise<string> {
-    const messagesToBePlayed = (report.messages as ReportMessage[])
+    const callMessagesToBePlayed = (report.callMessages as ReportCallMessage[])
       .filter(message => !message.played)
       .sort((
         a: any,
         b: any
       ) => b.createdAt - a.createdAt);
 
-    if ( messagesToBePlayed.length > 0 ) {
-      const selectedMessage = messagesToBePlayed[ 0 ];
+    if ( callMessagesToBePlayed.length > 0 ) {
+      const selectedMessage = callMessagesToBePlayed[ 0 ];
 
-      const reportMessage = await this.reportMessageModel
+      const reportMessage = await this.reportCallMessageModel
         .findOne({ _id: selectedMessage._id });
 
       reportMessage.played = true;

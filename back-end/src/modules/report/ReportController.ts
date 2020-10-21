@@ -1,9 +1,7 @@
-import { ContentType, Controller, Get, PathParams, Returns, ReturnsArray, Req, Use } from '@tsed/common';
+import { ContentType, Controller, Get, PathParams, Returns, ReturnsArray } from '@tsed/common';
 import { Inject } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Report } from './Report';
-import { ReportMessage } from './ReportMessage';
-
 
 @Controller('/reports')
 export class ReportController {
@@ -15,7 +13,7 @@ export class ReportController {
   @Get()
   findAll() {
     return this.reportModel.find()
-      .populate('messages')
+      .select('-callMessages')
       .sort('-createdAt')
       .exec();
   }
@@ -24,18 +22,7 @@ export class ReportController {
   @Returns(Report)
   findOne(@PathParams('id') id: string) {
     return this.reportModel.findById(id)
-      .populate('messages')
+      .select('-callMessages')
       .exec();
-  }
-
-  @ReturnsArray(ReportMessage)
-  @Get('/:id/messages')
-  async findAllMessages(@PathParams('id') id: string) {
-    console.log(`${id}`);
-    const report = await this.reportModel.findById(id)
-      .populate('messages')
-      .exec();
-
-    return report.messages;
   }
 }

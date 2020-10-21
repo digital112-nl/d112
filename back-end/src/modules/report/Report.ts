@@ -1,6 +1,7 @@
 import { Default, Enum, Property } from '@tsed/common';
 import { Model, Ref } from '@tsed/mongoose';
-import { ReportMessage } from './ReportMessage';
+import { ReportCallMessage } from './ReportCallMessage';
+import { ReportLocation } from './ReportLocation';
 
 export enum EmergencyResponseType {
   Text = 0,
@@ -31,17 +32,17 @@ export class Report {
   @Enum(ReportMode)
   @Default(ReportMode.Department)
   public reportMode: ReportMode = ReportMode.Department;
-  @Ref(ReportMessage)
-  public messages: Ref<ReportMessage>[];
+  @Ref(ReportCallMessage)
+  public callMessages: Ref<ReportCallMessage>[];
+  @Ref(ReportLocation)
+  public location: Ref<ReportLocation>;
   @Property()
   public updatedAt: Date;
   @Property()
   public createdAt: Date;
 
   public hasPlayableMessages() {
-    const messages: ReportMessage[] = this.messages as ReportMessage[];
-
-    return messages.filter(message => !message.played).length > 0;
+    return (this.callMessages as ReportCallMessage[]).filter(message => !message.played).length > 0;
   }
 }
 
