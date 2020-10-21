@@ -16,7 +16,7 @@ export class AuthenticationMiddleware implements IMiddleware {
   public async use(
     @Req() request: RequestWithUser
   ) {
-    if ( isNil(request.headers[ 'x-user-token' ]) ) {
+    if ( isNil(request.headers[ 'x-user-token' ]) || `${request.headers['x-user-token'] || ''}`.trim() === '' ) {
       throw new Unauthorized('Unauthorized');
     }
 

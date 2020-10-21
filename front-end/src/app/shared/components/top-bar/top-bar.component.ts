@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../../core/auth/auth.service';
 import { TopBarService } from './top-bar.service';
 
 @Component({
@@ -10,7 +11,8 @@ export class TopBarComponent {
   public isDropDownActive = false;
 
   constructor(
-    public topBarService: TopBarService
+    public topBarService: TopBarService,
+    public authService: AuthService
   ) {
   }
 }
