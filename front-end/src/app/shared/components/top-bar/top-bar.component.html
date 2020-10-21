@@ -6,10 +6,10 @@
      (clickOutside)="isDropDownActive = false"
      [attachOutsideOnClick]="true">
   <div class="top-bar__user-initials">
-    W
+    {{ authService.user.user?.firstName | initials }}
   </div>
   <div class="top-bar__user-name">
-    Wesley
+    {{ authService.user.user?.firstName }}
   </div>
 
   <i class="di-icon di-small-down" [ngClass]="{'di-icon-rotate-180': isDropDownActive}"></i>

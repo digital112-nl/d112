@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
+import { InitialsPipe } from './initials.pipe';
 import { PrioPipe } from './prio.pipe';
 
 @NgModule({
   declarations: [
-    PrioPipe
+    PrioPipe,
+    InitialsPipe
   ],
   exports: [
-    PrioPipe
+    PrioPipe,
+    InitialsPipe
   ]
 })
 export class SharedPipesModule {

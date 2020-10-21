@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Params, Router, RouterStateSnapshot } from '@angular/router';
-import * as _ from 'lodash';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
 
   constructor(
     private router: Router,
+    private authService: AuthService
   ) {
   }
 
@@ -29,22 +30,20 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     data
   ): Promise<boolean> {
     // If we dont have a token
-    // if ( !this.sessionService.hasToken() ) {
-    //   await this.router.navigateByUrl(`/auth/login?returnUrl=${encodeURIComponent(url)}`, {
-    //     replaceUrl: true
-    //   });
-    //   return false;
-    // }
+    if ( !this.authService.hasToken() ) {
+      await this.router.navigateByUrl(`/auth/login?returnUrl=${encodeURIComponent(url)}`, {
+        replaceUrl: true
+      });
+      return false;
+    }
 
     // If we have a token but we dont have a session
-    // if ( this.sessionService.hasToken() && !this.sessionService.hasSession() ) {
-    //   await this.router.navigateByUrl(`/auth/verify?returnUrl=${encodeURIComponent(url)}`, {
-    //     replaceUrl: true
-    //   });
-    //   return false;
-    // }
-
-    // If we have a session and we are not on verify-phone
+    if ( this.authService.hasToken() && !this.authService.hasSession() ) {
+      await this.router.navigateByUrl(`/auth/verify?returnUrl=${encodeURIComponent(url)}`, {
+        replaceUrl: true
+      });
+      return false;
+    }
 
     return true;
   }

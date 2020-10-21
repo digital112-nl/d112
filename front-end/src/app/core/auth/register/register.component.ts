@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import { Authenticate } from '../../../api/models/authenticate';
 import { UserRegister } from '../../../api/models/user-register';
 import { AuthService } from '../auth.service';
 
@@ -17,15 +16,17 @@ export interface InformationItem {
 }
 
 @Component({
-  selector: 'di-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'di-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   public formGroup: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    firstName: new FormControl('', [ Validators.required ]),
+    lastName: new FormControl('', [ Validators.required ]),
+    email: new FormControl('', [ Validators.required, Validators.email ]),
+    password: new FormControl('', [ Validators.required ]),
   });
 
   public informationItems: InformationItem[] = [
@@ -49,16 +50,11 @@ export class LoginComponent implements OnInit {
   private colors: string[] = ['#273148', '#333D54', '#40495E'];
   private directions: string[] = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
   private interval;
-  private returnUrl = '/';
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private router: Router
   ) {
-    this.activatedRoute.queryParams.subscribe(({ returnUrl }) => {
-      this.returnUrl = returnUrl || '/';
-    });
   }
 
   public ngOnInit() {
@@ -79,17 +75,6 @@ export class LoginComponent implements OnInit {
     this.setInterval();
   }
 
-  public async login() {
-    const { email, password } = this.formGroup.value;
-
-    await this.authService.login({
-      email,
-      password
-    } as Authenticate);
-
-    await this.router.navigateByUrl(this.returnUrl, { replaceUrl: true });
-  }
-
   private setInterval() {
     if ( !_.isNil(this.informationItems) ) {
       this.interval = setInterval(() => {
@@ -100,5 +85,18 @@ export class LoginComponent implements OnInit {
         }
       }, 10 * 1000);
     }
+  }
+
+  public async register() {
+    const { firstName, lastName, email, password } = this.formGroup.value;
+
+    await this.authService.register({
+      firstName,
+      lastName,
+      email,
+      password
+    } as UserRegister);
+
+    await this.router.navigateByUrl('/app/redirect');
   }
 }

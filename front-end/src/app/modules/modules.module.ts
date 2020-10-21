@@ -7,6 +7,7 @@ import { ContainerComponent } from './container/container.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { MapModule } from './map/map.module';
 import { ModulesRoutingModule } from './modules-routing.module';
+import { RedirectComponent } from './redirect/redirect.component';
 import { ScenariosModule } from './scenarios/scenarios.module';
 import { SettingsModule } from './settings/settings.module';
 
@@ -23,7 +24,8 @@ import { SettingsModule } from './settings/settings.module';
     SharedModule
   ],
   declarations: [
-    ContainerComponent
+    ContainerComponent,
+    RedirectComponent
   ]
 })
 export class ModulesModule {
