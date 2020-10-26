@@ -1,5 +1,6 @@
 /* tslint:disable */
-export interface UserApiKey {
+import { User } from './user';
+export interface UserSession {
   createdAt?: string;
 
   /**
@@ -7,10 +8,6 @@ export interface UserApiKey {
    */
   id?: string;
   token?: string;
-
-  /**
-   * Mongoose Ref ObjectId
-   */
-  user: string;
+  user: User;
   validUntil?: string;
 }

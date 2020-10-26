@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Report } from '../../../api/models';
+import { ReportModel } from '../../../api/models';
 
 export enum ScenarioPrio {
   Emergency = 0,
@@ -21,5 +21,32 @@ export interface ScenarioListItem {
   styleUrls: [ './scenario-list.component.scss' ]
 })
 export class ScenarioListComponent {
-  @Input() reports: Report[] = [];
+  @Input() reports: ReportModel[] = [];
+
+  trackByIcon(
+    index,
+    { icon }
+  ) {
+    return `${index}-${icon}`;
+  }
+
+  trackByReport(
+    index,
+    { _id }
+  ) {
+    return `${index}-${_id}`;
+  }
+
+  public getIcon(report: ReportModel) {
+    if ( report.department ) {
+      switch (report.department.name) {
+        case 'fire':
+          return '🚒';
+        case 'police':
+          return '🚓';
+      }
+    }
+
+    return '🚨';
+  }
 }

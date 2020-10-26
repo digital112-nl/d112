@@ -22,9 +22,13 @@
           </div>
         </div>
       </div>
-      <di-map></di-map>
+      <di-map [reports]="locationReports"></di-map>
     </div>
     <div class="col col-lg-3 col-md-5 col-sm-5 col-xs-12">
+      <div class="scenario-list__header">
+        <h2>Scenarios</h2>
+        <a [routerLink]="'/app/scenarios'">View all</a>
+      </div>
       <di-scenario-list [reports]="reports"></di-scenario-list>
     </div>
   </div>

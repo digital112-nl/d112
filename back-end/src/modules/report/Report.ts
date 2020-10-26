@@ -1,7 +1,8 @@
 import { Default, Enum, Property } from '@tsed/common';
 import { Model, Ref } from '@tsed/mongoose';
-import { ReportCallMessage } from './ReportCallMessage';
-import { ReportLocation } from './ReportLocation';
+import { DepartmentSettingModel } from '../ai/department/Departments';
+import { ReportCallMessage } from './report-call-message/ReportCallMessage';
+import { ReportLocation } from './report-location/ReportLocation';
 
 export enum EmergencyResponseType {
   Text = 0,
@@ -29,6 +30,8 @@ export class Report {
   public callStatus: string;
   @Enum(EmergencyResponseType)
   public responseType: EmergencyResponseType;
+  @Property()
+  public department: DepartmentSettingModel;
   @Enum(ReportMode)
   @Default(ReportMode.Department)
   public reportMode: ReportMode = ReportMode.Department;

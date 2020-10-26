@@ -1,7 +1,9 @@
-<div style="height: 100%;"
-     leaflet
-     class="map-instance"
-     (leafletMapReady)="internalMapReady($event)"
+<div (leafletMapReady)="internalMapReady($event)"
      [leafletLayers]="layers"
-     [leafletOptions]="options">
+     [leafletMarkerClusterOptions]="markerClusterOptions"
+     [leafletMarkerCluster]="markerClusterData"
+     [leafletOptions]="options"
+     class="map-instance"
+     leaflet
+     style="height: 100%;">
 </div>

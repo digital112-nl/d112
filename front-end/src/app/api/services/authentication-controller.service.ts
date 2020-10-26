@@ -7,7 +7,7 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { UserApiKey } from '../models/user-api-key';
+import { UserSession } from '../models/user-session';
 import { Authenticate } from '../models/authenticate';
 import { UserRegister } from '../models/user-register';
 @Injectable({
@@ -29,7 +29,7 @@ class AuthenticationControllerService extends __BaseService {
    * @param body undefined
    * @return Success
    */
-  AuthenticationControllerAuthenticateResponse(body?: Authenticate): __Observable<__StrictHttpResponse<UserApiKey>> {
+  AuthenticationControllerAuthenticateResponse(body?: Authenticate): __Observable<__StrictHttpResponse<UserSession>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -47,7 +47,7 @@ class AuthenticationControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<UserApiKey>;
+        return _r as __StrictHttpResponse<UserSession>;
       })
     );
   }
@@ -55,9 +55,9 @@ class AuthenticationControllerService extends __BaseService {
    * @param body undefined
    * @return Success
    */
-  AuthenticationControllerAuthenticate(body?: Authenticate): __Observable<UserApiKey> {
+  AuthenticationControllerAuthenticate(body?: Authenticate): __Observable<UserSession> {
     return this.AuthenticationControllerAuthenticateResponse(body).pipe(
-      __map(_r => _r.body as UserApiKey)
+      __map(_r => _r.body as UserSession)
     );
   }
 
@@ -65,7 +65,7 @@ class AuthenticationControllerService extends __BaseService {
    * @param body undefined
    * @return Success
    */
-  AuthenticationControllerRegisterResponse(body?: UserRegister): __Observable<__StrictHttpResponse<UserApiKey>> {
+  AuthenticationControllerRegisterResponse(body?: UserRegister): __Observable<__StrictHttpResponse<UserSession>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -83,7 +83,7 @@ class AuthenticationControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<UserApiKey>;
+        return _r as __StrictHttpResponse<UserSession>;
       })
     );
   }
@@ -91,16 +91,16 @@ class AuthenticationControllerService extends __BaseService {
    * @param body undefined
    * @return Success
    */
-  AuthenticationControllerRegister(body?: UserRegister): __Observable<UserApiKey> {
+  AuthenticationControllerRegister(body?: UserRegister): __Observable<UserSession> {
     return this.AuthenticationControllerRegisterResponse(body).pipe(
-      __map(_r => _r.body as UserApiKey)
+      __map(_r => _r.body as UserSession)
     );
   }
 
   /**
    * @return Success
    */
-  AuthenticationControllerGetMeResponse(): __Observable<__StrictHttpResponse<UserApiKey>> {
+  AuthenticationControllerGetMeResponse(): __Observable<__StrictHttpResponse<UserSession>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -117,16 +117,16 @@ class AuthenticationControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<UserApiKey>;
+        return _r as __StrictHttpResponse<UserSession>;
       })
     );
   }
   /**
    * @return Success
    */
-  AuthenticationControllerGetMe(): __Observable<UserApiKey> {
+  AuthenticationControllerGetMe(): __Observable<UserSession> {
     return this.AuthenticationControllerGetMeResponse().pipe(
-      __map(_r => _r.body as UserApiKey)
+      __map(_r => _r.body as UserSession)
     );
   }
 }

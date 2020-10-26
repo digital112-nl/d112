@@ -15,6 +15,26 @@
   display: flex;
   flex-direction: column;
 
+  ::ng-deep .map-icon {
+    min-width: 25px;
+    min-height: 25px;
+    background: $icon-color;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .report-overlay {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    min-height: 100vh;
+    min-width: 20vh;
+
+  }
+
   .map-instance {
     background: $background-color;
   }

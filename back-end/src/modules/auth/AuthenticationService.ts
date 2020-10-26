@@ -1,5 +1,5 @@
 import { Inject, Service } from '@tsed/common';
-import { Forbidden } from '@tsed/exceptions';
+import { Forbidden, Unauthorized } from '@tsed/exceptions';
 import { MongooseModel } from '@tsed/mongoose';
 import { Document } from 'mongoose';
 import { Authenticate } from './models/Authenticate';
@@ -22,7 +22,7 @@ export class AuthenticationService {
       .exec();
 
     if ( apiKey.validUntil < (new Date()) ) {
-      throw new Forbidden('Api key no longer valid.');
+      throw new Unauthorized('Api key no longer valid.');
     } else {
       return apiKey;
     }

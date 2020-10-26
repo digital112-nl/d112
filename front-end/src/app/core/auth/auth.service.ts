@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { isNil } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
-import { Authenticate, UserApiKey, UserRegister } from '../../api/models';
+import { Authenticate, UserRegister, UserSession } from '../../api/models';
 import { AuthenticationControllerService } from '../../api/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  public user: UserApiKey;
+  public userSession: UserSession;
   private userTokenLocation = 'User.Token.v1';
 
   constructor(
@@ -19,14 +18,14 @@ export class AuthService {
   }
 
   public async login(authenticate: Authenticate) {
-    this.user = await this.authenticationController
+    this.userSession = await this.authenticationController
       .AuthenticationControllerAuthenticate(authenticate)
       .toPromise();
     this.saveToken();
   }
 
   public async register(register: UserRegister) {
-    this.user = await this.authenticationController
+    this.userSession = await this.authenticationController
       .AuthenticationControllerRegister(register)
       .toPromise();
     this.saveToken();
@@ -38,17 +37,17 @@ export class AuthService {
 
   public deleteToken() {
     this.cookieService.delete(this.userTokenLocation);
-    this.user = null;
+    this.userSession = null;
   }
 
   public async load() {
-    this.user = await this.authenticationController
+    this.userSession = await this.authenticationController
       .AuthenticationControllerGetMe()
       .toPromise();
   }
 
   public hasSession() {
-    return this.hasToken() && !isNil(this.user);
+    return this.hasToken() && !isNil(this.userSession);
   }
 
   public getToken() {
@@ -56,6 +55,6 @@ export class AuthService {
   }
 
   private saveToken() {
-    this.cookieService.set(this.userTokenLocation, this.user.token);
+    this.cookieService.set(this.userTokenLocation, this.userSession.token);
   }
 }

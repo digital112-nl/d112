@@ -1,19 +1,22 @@
 import { Inject, Service } from '@tsed/di';
+import { find, isNil } from 'lodash';
 import { Document } from 'mongoose';
 import Message from '../../emergency/handlers/speech/messages/Message';
 import UnknownPleaseTalkAgain from '../../emergency/handlers/speech/messages/UnknownPleaseTalkAgain';
 import { Report } from '../../report/Report';
-import { ReportCallMessageService } from '../../report/ReportCallMessageService';
-import { ReportLocationService } from '../../report/ReportLocationService';
+import { ReportCallMessageService } from '../../report/report-call-message/ReportCallMessageService';
+import { ReportLocationService } from '../../report/report-location/ReportLocationService';
+import { ReportService } from '../../report/ReportService';
 import { WitContext } from '../WitContext';
 import { DepartmentAi, WitAiIntent } from './DepartmentAi';
-import { isNil, find } from 'lodash';
-import { Department, Departments, DepartmentCategory } from './Departments';
+import { Department, DepartmentCategory, Departments } from './Departments';
 
 @Service()
 export class DepartmentHandler {
   @Inject(DepartmentAi)
   private ai: DepartmentAi;
+  @Inject(ReportService)
+  private reportService: ReportService;
   @Inject(ReportCallMessageService)
   private reportCallMessageService: ReportCallMessageService;
   @Inject(ReportLocationService)
@@ -43,9 +46,11 @@ export class DepartmentHandler {
 
 
     const firstResult = result.intents[ 0 ];
-    const { department, category } = this.getDepartmentAndCategory(firstResult);
+    const { category } = this.getDepartmentAndCategory(firstResult);
 
-    const message = await this.generateMessage(report, department, category);
+    const message = await this.generateMessage(report, category);
+
+    await this.reportService.setDepartment(report, category);
 
     await this.reportCallMessageService.sendMessage(report, message.toString());
     console.log('message has been send');
@@ -84,13 +89,17 @@ export class DepartmentHandler {
 
   private async generateMessage(
     report: Report & Document,
-    department: Department,
     category: DepartmentCategory
   ) {
     const messages = [ category.message ];
 
     if ( !category.disable_services_message ) {
       messages.push(this.generateServicesMessage(category));
+    }
+
+    if ( category.unhandled ) {
+      messages.push('We currently do not know how to handle this situation. We\'re redirecting you to a person.');
+      return Message(messages.join('. '));
     }
 
     if ( !category.disable_location_required ) {

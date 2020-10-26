@@ -7,6 +7,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
 import { IntentControllerService } from './services/intent-controller.service';
 import { ReportControllerService } from './services/report-controller.service';
 import { TwilioControllerService } from './services/twilio-controller.service';
+import { LocationControllerService } from './services/location-controller.service';
 
 /**
  * Provider for all Api services, plus ApiConfiguration
@@ -24,7 +25,8 @@ import { TwilioControllerService } from './services/twilio-controller.service';
     AuthenticationControllerService,
     IntentControllerService,
     ReportControllerService,
-    TwilioControllerService
+    TwilioControllerService,
+    LocationControllerService
   ],
 })
 export class ApiModule {

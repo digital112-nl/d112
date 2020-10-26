@@ -7,15 +7,14 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { Report } from '../models/report';
-import { ReportMessage } from '../models/report-message';
+import { ReportModel } from '../models/report-model';
 @Injectable({
   providedIn: 'root',
 })
 class ReportControllerService extends __BaseService {
   static readonly ReportControllerFindAllPath = '/api/v1/reports';
+  static readonly ReportControllerFindAllWithLocationPath = '/api/v1/reports/locations';
   static readonly ReportControllerFindOnePath = '/api/v1/reports/{id}';
-  static readonly ReportControllerFindAllMessagesPath = '/api/v1/reports/{id}/messages';
 
   constructor(
     config: __Configuration,
@@ -27,7 +26,7 @@ class ReportControllerService extends __BaseService {
   /**
    * @return Success
    */
-  ReportControllerFindAllResponse(): __Observable<__StrictHttpResponse<Array<Report>>> {
+  ReportControllerFindAllResponse(): __Observable<__StrictHttpResponse<Array<ReportModel>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -44,16 +43,49 @@ class ReportControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<Report>>;
+        return _r as __StrictHttpResponse<Array<ReportModel>>;
       })
     );
   }
   /**
    * @return Success
    */
-  ReportControllerFindAll(): __Observable<Array<Report>> {
+  ReportControllerFindAll(): __Observable<Array<ReportModel>> {
     return this.ReportControllerFindAllResponse().pipe(
-      __map(_r => _r.body as Array<Report>)
+      __map(_r => _r.body as Array<ReportModel>)
+    );
+  }
+
+  /**
+   * @return Success
+   */
+  ReportControllerFindAllWithLocationResponse(): __Observable<__StrictHttpResponse<Array<ReportModel>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/v1/reports/locations`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ReportModel>>;
+      })
+    );
+  }
+  /**
+   * @return Success
+   */
+  ReportControllerFindAllWithLocation(): __Observable<Array<ReportModel>> {
+    return this.ReportControllerFindAllWithLocationResponse().pipe(
+      __map(_r => _r.body as Array<ReportModel>)
     );
   }
 
@@ -61,7 +93,7 @@ class ReportControllerService extends __BaseService {
    * @param id undefined
    * @return Success
    */
-  ReportControllerFindOneResponse(id: string): __Observable<__StrictHttpResponse<Report>> {
+  ReportControllerFindOneResponse(id: string): __Observable<__StrictHttpResponse<ReportModel>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -79,7 +111,7 @@ class ReportControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Report>;
+        return _r as __StrictHttpResponse<ReportModel>;
       })
     );
   }
@@ -87,45 +119,9 @@ class ReportControllerService extends __BaseService {
    * @param id undefined
    * @return Success
    */
-  ReportControllerFindOne(id: string): __Observable<Report> {
+  ReportControllerFindOne(id: string): __Observable<ReportModel> {
     return this.ReportControllerFindOneResponse(id).pipe(
-      __map(_r => _r.body as Report)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return Success
-   */
-  ReportControllerFindAllMessagesResponse(id: string): __Observable<__StrictHttpResponse<Array<ReportMessage>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `/api/v1/reports/${encodeURIComponent(id)}/messages`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<ReportMessage>>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return Success
-   */
-  ReportControllerFindAllMessages(id: string): __Observable<Array<ReportMessage>> {
-    return this.ReportControllerFindAllMessagesResponse(id).pipe(
-      __map(_r => _r.body as Array<ReportMessage>)
+      __map(_r => _r.body as ReportModel)
     );
   }
 }

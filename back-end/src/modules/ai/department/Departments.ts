@@ -1,7 +1,28 @@
+import { Property } from '@tsed/common';
+
 export interface Department {
   name: string;
   default: DepartmentSettings;
   categories: DepartmentCategory[];
+}
+
+export class DepartmentSettingModel implements DepartmentCategory {
+  @Property()
+  public name: string;
+  @Property()
+  public message: string;
+  @Property()
+  public ambulance: boolean;
+  @Property()
+  public police: boolean;
+  @Property()
+  public fire_department: boolean;
+  @Property()
+  public disable_location_required: boolean;
+  @Property()
+  public disable_services_message: boolean;
+  @Property()
+  public unhandled: boolean;
 }
 
 export interface DepartmentSettings {
@@ -11,6 +32,7 @@ export interface DepartmentSettings {
   ambulance?: boolean;
   disable_location_required?: boolean;
   disable_services_message?: boolean;
+  unhandled?: boolean;
 }
 
 export interface DepartmentCategory extends DepartmentSettings {
@@ -50,7 +72,8 @@ export const Departments: Department[] = [
       {
         name: 'theft',
         message: 'You seem to have witnessed or been stolen from.',
-        police: true
+        police: true,
+        unhandled: true
       }
     ]
   }

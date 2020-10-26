@@ -6,6 +6,7 @@ import { AuthenticationService } from './AuthenticationService';
 import { UserRegister } from './models/UserRegister';
 import { RequestWithUser } from './models/RequestWithUser';
 import { UserApiKey } from './user/UserApiKey';
+import { UserSession } from './user/UserSession';
 
 @Controller('/auth')
 export class AuthenticationController {
@@ -13,28 +14,28 @@ export class AuthenticationController {
   private authenticationService = new AuthenticationService;
 
   @Post('/login')
-  @Returns(UserApiKey)
+  @Returns(UserSession)
   public authenticate(
     @BodyParams() authenticate: Authenticate
-  ): Promise<UserApiKey> {
-    return this.authenticationService.authenticate(authenticate);
+  ): Promise<UserSession> {
+    return this.authenticationService.authenticate(authenticate) as Promise<UserSession>;
   }
 
   @Post('/register')
-  @Returns(UserApiKey)
+  @Returns(UserSession)
   public register(
     @BodyParams() payload: UserRegister
-  ): Promise<UserApiKey> {
-    return this.authenticationService.register(payload);
+  ): Promise<UserSession> {
+    return this.authenticationService.register(payload) as Promise<UserSession>;
   }
 
   @TokenAuth()
   @Get('/me')
-  @Returns(UserApiKey)
+  @Returns(UserSession)
   public getMe(
     @Req() { apiKey }: RequestWithUser
-  ): UserApiKey {
-    return apiKey;
+  ): UserSession {
+    return apiKey as UserSession;
   }
 
 }

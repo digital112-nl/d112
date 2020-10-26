@@ -1,13 +1,8 @@
-<div class="scenario-list__header">
-  <h2>Scenarios</h2>
-  <a [routerLink]="'/app/scenarios'">View all</a>
-</div>
-
 <div class="scenario-list__container">
-  <div *ngFor="let report of reports" class="scenario-list__item"
-       [routerLink]="'/app/scenarios/' + report._id">
+  <div *ngFor="let report of reports; trackBy: trackByReport" [routerLink]="'/app/scenarios/' + report._id"
+       class="scenario-list__item">
     <div class="scenario-list__item-icon">
-      🚨
+      {{ getIcon(report) }}
     </div>
 
     <div class="scenario-list__item-information">
@@ -18,6 +13,14 @@
         <span class="item-information__prio item-information__prio--{{ 0 | prio : true }}">
           <i class="di-icon di-{{ 0 | prio : false : true }}"></i>
           {{ 0 | prio }}
+        </span>
+        <span class="item-information__icons">
+          <span *ngFor="let icon of (report | scenarioIcons); trackBy: trackByIcon"
+                [matTooltip]="icon.description"
+                [ngClass]="{ 'item-information__icon--disabled': icon.disabled }"
+                class="item-information__icon">
+            {{ icon.icon }}
+          </span>
         </span>
         <span class="item-information__time">
           {{ report.createdAt | timeago }}

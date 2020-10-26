@@ -1,7 +1,6 @@
 import { Property } from '@tsed/common';
-import { Model, PreHook, VirtualRef } from '@tsed/mongoose';
+import { Model, PreHook } from '@tsed/mongoose';
 import { isNil } from 'lodash';
-import { Report } from './Report';
 import { v4 } from 'uuid';
 
 @Model({

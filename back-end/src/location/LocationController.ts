@@ -1,5 +1,5 @@
 import { BodyParams, Controller, Get, Inject, PathParams, Post, View } from '@tsed/common';
-import { ReportLocationService } from '../modules/report/ReportLocationService';
+import { ReportLocationService } from '../modules/report/report-location/ReportLocationService';
 
 const {
   BASE_URL

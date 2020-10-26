@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Report } from '../../../api/models';
+import { ReportModel } from '../../../api/models';
 import { ReportControllerService } from '../../../api/services';
 import { TopBarService } from '../../../shared/components/top-bar/top-bar.service';
 
@@ -9,7 +9,7 @@ import { TopBarService } from '../../../shared/components/top-bar/top-bar.servic
   styleUrls: [ './scenarios-page.component.scss' ]
 })
 export class ScenariosPageComponent {
-  public reports: Array<Report>;
+  public reports: Array<ReportModel>;
 
   constructor(
     private topBarService: TopBarService,
