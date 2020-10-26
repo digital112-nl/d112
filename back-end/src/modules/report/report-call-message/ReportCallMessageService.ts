@@ -1,13 +1,16 @@
 import { Inject, Service } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Document } from 'mongoose';
-import { Report } from './Report';
+import { Report } from '../Report';
+import { ReportService } from '../ReportService';
 import { ReportCallMessage } from './ReportCallMessage';
 
 @Service()
 export class ReportCallMessageService {
   @Inject(Report)
   private reportModel: MongooseModel<Report>;
+  @Inject(ReportService)
+  private reportService: ReportService;
   @Inject(ReportCallMessage)
   private reportCallMessageModel: MongooseModel<ReportCallMessage>;
 

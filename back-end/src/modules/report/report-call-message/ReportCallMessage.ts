@@ -1,6 +1,6 @@
 import { Default, Property } from '@tsed/common';
 import { Model, VirtualRef } from '@tsed/mongoose';
-import { Report } from './Report';
+import { Report } from '../Report';
 
 @Model({
   schemaOptions: {

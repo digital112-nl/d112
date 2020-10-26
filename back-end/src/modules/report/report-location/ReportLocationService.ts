@@ -5,10 +5,11 @@ import { MongooseModel } from '@tsed/mongoose';
 import { isNil } from 'lodash';
 import { Document } from 'mongoose';
 import { Twilio } from 'twilio';
-import { ILocationData } from '../../location/LocationController';
-import Message from '../emergency/handlers/speech/messages/Message';
-import { Report } from './Report';
-import { ReportCallMessageService } from './ReportCallMessageService';
+import { ILocationData } from '../../../location/LocationController';
+import Message from '../../emergency/handlers/speech/messages/Message';
+import { Report } from '../Report';
+import { ReportCallMessageService } from '../report-call-message/ReportCallMessageService';
+import { ReportService } from '../ReportService';
 import { ReportLocation } from './ReportLocation';
 
 const {
@@ -22,6 +23,8 @@ const {
 
 @Service()
 export class ReportLocationService {
+  @Inject(ReportService)
+  private reportService: ReportService;
   public isDisabled: boolean = isNil(TWILIO_ACCOUNT_SID) || isNil(TWILIO_AUTH_TOKEN);
 
   private client: Twilio = this.isDisabled ? null : new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
@@ -57,6 +60,7 @@ export class ReportLocationService {
 
     report.location = location;
     await report.save();
+    this.reportService.updateReport(report);
 
     return location;
   }
