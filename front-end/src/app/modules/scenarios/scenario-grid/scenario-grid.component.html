@@ -1,0 +1,42 @@
+<div class="scenario-search__container"
+     [formGroup]="formGroup">
+  <label for="search">
+    <i class="di-icon di-zoom"></i>
+  </label>
+  <input type="text"
+         id="search"
+         class="scenario-search"
+         autocomplete="off"
+         [formControlName]="'search'"
+         placeholder="Search scenarios...">
+</div>
+
+<div class="scenario-grid__container">
+  <div *ngFor="let report of (reports | diFuse : formGroup.value.search:{keys: ['caller']}); trackBy: trackByReport" [routerLink]="'/app/scenarios/' + report._id"
+       class="scenario-grid__item-container">
+    <div class="scenario-grid__item-icon">
+      {{ getIcon(report) }}
+    </div>
+    <p class="scenario-grid__item-caller">
+      {{ report.caller }}
+    </p>
+
+    <span class="scenario-grid__item-prio scenario-grid__item-prio--{{ 0 | prio : true }}">
+          <i class="di-icon di-{{ 0 | prio : false : true }}"></i>
+      {{ 0 | prio }}
+    </span>
+
+    <span class="scenario-grid__item-date">
+      {{ report.createdAt | date : 'dd-MM-yyyy HH:mm:ss' }}
+    </span>
+
+    <div class="scenario-grid__item-statuses">
+      <span *ngFor="let icon of (report | scenarioIcons); trackBy: trackByIcon"
+            [matTooltip]="icon.description"
+            [ngClass]="{ 'scenario-grid__item-status--disabled': icon.disabled }"
+            class="scenario-grid__item-status">
+      {{ icon.icon }}
+    </span>
+    </div>
+  </div>
+</div>
