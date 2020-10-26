@@ -45,6 +45,7 @@ export class ReportController {
   @Returns(ReportModel)
   findOne(@PathParams('id') id: string) {
     return this.reportModel.findById(id)
+      .populate('location')
       .select('-callMessages')
       .exec() as Promise<ReportModel>;
   }

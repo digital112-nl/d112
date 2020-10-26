@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, HostBinding, Input, NgZone, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   control,
@@ -27,6 +27,7 @@ export class MapComponent implements OnChanges {
   @Input() public fullMap = false;
 
   @Input() public reports: ReportModel[] = [];
+  @Input() public padding = 50;
   public options: MapOptions = {
     center: {
       lat: 51.585720,
@@ -60,7 +61,8 @@ export class MapComponent implements OnChanges {
   });
 
   constructor(
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) {
   }
 
@@ -92,7 +94,7 @@ export class MapComponent implements OnChanges {
       const marker = new Marker([ report.location.lat, report.location.lon ], {
         icon: this.icon
       });
-      marker.on('click', () => this.router.navigateByUrl('/app/scenarios/' + report._id));
+      marker.on('click', () => this.zone.run(() => this.router.navigateByUrl('/app/scenarios/' + report._id)));
       this.markerClusterData.push(marker);
     }
 
@@ -108,7 +110,7 @@ export class MapComponent implements OnChanges {
       [ sw.lat, sw.lng ],
       [ ne.lat, ne.lng ]
     ], {
-      padding: [ 50, 50 ]
+      padding: [ this.padding, this.padding ]
     });
   }
 
