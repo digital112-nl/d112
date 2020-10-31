@@ -1,0 +1,137 @@
+@import "component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .scenario-search__container {
+    position: relative;
+    margin-bottom: 26px;
+
+    label {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 24px;
+      color: $icon-color;
+    }
+
+    .scenario-search {
+      height: 60px;
+      width: 25vw;
+      border-radius: 20px;
+      background: $scenario-item-background;
+      color: $text-default;
+
+      outline: none;
+      border: none;
+      padding: 0 24px 0 60px;
+    }
+  }
+
+  .scenario-grid__container {
+    display: flex;
+    flex-direction: column;
+
+    .scenario-grid__item-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      height: 84px;
+      border-radius: 20px;
+      padding: 16px;
+      box-sizing: border-box;
+      background: $scenario-item-background;
+
+      margin-bottom: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow .25s ease-out;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+      }
+
+      .scenario-grid__item-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 50px;
+        min-width: 50px;
+        height: 50px;
+        background: #F19292;
+        border-radius: 16px;
+        @include font(24);
+
+        margin-right: 16px;
+      }
+
+      .scenario-grid__item-caller {
+        flex: 1 1 auto;
+        @include font(16, 600);
+        color: $text-default;
+      }
+
+      .scenario-grid__item-prio {
+        flex: 1 1 auto;
+        @include font(12, 500);
+        margin-right: 7px;
+
+        &--emergency {
+          color: $prio-emergency;
+        }
+
+        &--high {
+          color: $prio-high;
+        }
+
+        &--medium {
+          color: $prio-medium;
+        }
+
+        &--low {
+          color: $prio-low;
+        }
+
+        i {
+          @include font(10);
+          margin-right: 3px;
+        }
+      }
+
+      .scenario-grid__item-date {
+        flex: 1 1 auto;
+        @include font(12, 500);
+        color: $text-gray;
+        margin-right: 7px;
+      }
+
+      .scenario-grid__item-statuses {
+        display: flex;
+        flex: 1 1 auto;
+        max-width: 150px;
+        flex-direction: row;
+
+        .scenario-grid__item-status {
+          margin-right: 5px;
+          font-size: 12px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          &--disabled {
+            opacity: .5;
+          }
+        }
+      }
+    }
+  }
+}
