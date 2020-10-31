@@ -16,6 +16,11 @@
   box-shadow: 0 2px 10px 0 rgba(6, 77, 254, .5);
   transition: box-shadow .25s ease-out;
 
+  &--small {
+    height: 50px;
+    @include font(16, 600);
+  }
+
   &:hover {
     box-shadow: 0 2px 12px 0 rgba(6, 77, 254, .8);
   }

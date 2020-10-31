@@ -7,7 +7,10 @@ import { RouterModule } from '@angular/router';
 import { TimeagoModule } from 'ngx-timeago';
 import { SharedModule } from '../../shared/shared.module';
 import { ScenarioDetailActivityComponent } from './scenario-detail-page/scenario-detail-activity/scenario-detail-activity.component';
+import { ScenarioDetailChatComponent } from './scenario-detail-page/scenario-detail-chat/scenario-detail-chat.component';
+import { ScenarioDetailInfoComponent } from './scenario-detail-page/scenario-detail-info/scenario-detail-info.component';
 import { ScenarioDetailPageComponent } from './scenario-detail-page/scenario-detail-page.component';
+import { ScenarioDetailPageService } from './scenario-detail-page/scenario-detail-page.service';
 import { FuseModule } from './scenario-grid/fuse/fuse.module';
 import { ScenarioGridComponent } from './scenario-grid/scenario-grid.component';
 import { ScenarioIconsPipe } from './scenario-list/scenario-icons.pipe';
@@ -31,11 +34,16 @@ import { ScenariosPageComponent } from './scenarios-page/scenarios-page.componen
     ScenarioListComponent,
     ScenarioDetailPageComponent,
     ScenarioDetailActivityComponent,
+    ScenarioDetailChatComponent,
+    ScenarioDetailInfoComponent,
     ScenarioGridComponent,
     ScenarioIconsPipe
   ],
   exports: [
     ScenarioListComponent
+  ],
+  providers: [
+    ScenarioDetailPageService
   ]
 })
 export class ScenariosModule {

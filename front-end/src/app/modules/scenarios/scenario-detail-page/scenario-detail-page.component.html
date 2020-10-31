@@ -1,7 +1,19 @@
-<div class="grid">
+<div class="grid-container--fluid">
   <div class="row">
     <div class="col col-lg-9 col-md-7 col-sm-7 col-xs-12 map-container">
-      <di-map [reports]="[report]"></di-map>
+      <di-map [reports]="[scenarioDetailPageService.report]"></di-map>
+
+      <div class="row">
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <di-scenario-detail-chat>
+          </di-scenario-detail-chat>
+        </div>
+
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <di-scenario-detail-info>
+          </di-scenario-detail-info>
+        </div>
+      </div>
     </div>
     <div class="col col-lg-3 col-md-5 col-sm-5 col-xs-12 scenario-activity__container">
       <h2>Activity</h2>

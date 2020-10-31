@@ -1,0 +1,48 @@
+<h3 class="info-title">
+  Scenario info
+</h3>
+
+<form (ngSubmit)="updateScenario()" [formGroup]="scenarioDetailPageService.formGroup" class="grid-container--fluid">
+  <div class="row">
+    <div class="input-field input-field--margin-bottom col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <label class="input-field__label" for="scenarioName">Scenario name</label>
+      <input class="input-field__input"
+             [formControlName]="'scenarioName'"
+             type="text"
+             id="scenarioName">
+    </div>
+
+    <div class="input-field col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <label class="input-field__label" for="status">Status</label>
+      <input class="input-field__input"
+             readonly
+             [formControlName]="'status'"
+             type="text"
+             id="status">
+    </div>
+
+    <div class="input-field col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <label class="input-field__label" for="createdAt">Created at</label>
+      <input class="input-field__input"
+             readonly
+             [formControlName]="'createdAt'"
+             type="text"
+             id="createdAt">
+    </div>
+
+    <div class="input-field col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <label class="input-field__label" for="updatedAt">Updated at</label>
+      <input class="input-field__input"
+             readonly
+             [formControlName]="'updatedAt'"
+             type="text"
+             id="updatedAt">
+    </div>
+  </div>
+
+
+  <button type="submit"
+          class="button button--small update-button">
+    Update
+  </button>
+</form>
