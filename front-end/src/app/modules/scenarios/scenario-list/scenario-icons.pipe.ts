@@ -54,7 +54,7 @@ export function ScenarioIconForReport(report: ReportModel): ScenarioIcon[] {
       icons.push({
         icon: '🌍',
         description: 'Location',
-        disabled: isNil(report.location.lat) || isNil(report.location.lon)
+        disabled: isNil(report.location) || isNil(report.location.lat) || isNil(report.location.lon)
       });
     }
     if ( report.department.unhandled ) {

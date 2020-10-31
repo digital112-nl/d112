@@ -2,14 +2,21 @@ import { Inject, Service } from '@tsed/di';
 import { find, isNil } from 'lodash';
 import { Document } from 'mongoose';
 import Message from '../../emergency/handlers/speech/messages/Message';
+import EndCallWithMessage from '../../emergency/handlers/speech/messages/EndCallWithMessage';
+import RedirectCallWithMessage from '../../emergency/handlers/speech/messages/RedirectCallWithMessage';
 import UnknownPleaseTalkAgain from '../../emergency/handlers/speech/messages/UnknownPleaseTalkAgain';
-import { Report } from '../../report/Report';
+import { Report, ReportMode } from '../../report/Report';
 import { ReportCallMessageService } from '../../report/report-call-message/ReportCallMessageService';
 import { ReportLocationService } from '../../report/report-location/ReportLocationService';
 import { ReportService } from '../../report/ReportService';
 import { WitContext } from '../WitContext';
 import { DepartmentAi, WitAiIntent } from './DepartmentAi';
 import { Department, DepartmentCategory, Departments } from './Departments';
+
+
+const {
+  TWILIO_REDIRECT_TO
+} = process.env;
 
 @Service()
 export class DepartmentHandler {
@@ -46,11 +53,11 @@ export class DepartmentHandler {
 
 
     const firstResult = result.intents[ 0 ];
-    const { category } = this.getDepartmentAndCategory(firstResult);
+    const { department, category } = this.getDepartmentAndCategory(firstResult);
 
     const message = await this.generateMessage(report, category);
 
-    await this.reportService.setDepartment(report, category);
+    await this.reportService.setDepartment(report, category, department.name);
 
     await this.reportCallMessageService.sendMessage(report, message.toString());
     console.log('message has been send');
@@ -98,8 +105,10 @@ export class DepartmentHandler {
     }
 
     if ( category.unhandled ) {
-      messages.push('We currently do not know how to handle this situation. We\'re redirecting you to a person.');
-      return Message(messages.join('. '));
+      messages.push('The system does not know how to further handle this situation. We\'re redirecting you to a person.');
+      return `${TWILIO_REDIRECT_TO || ''}`.trim() === '' ?
+        EndCallWithMessage(messages.join('. ')) :
+        RedirectCallWithMessage(messages.join('. '));
     }
 
     if ( !category.disable_location_required ) {
@@ -108,6 +117,9 @@ export class DepartmentHandler {
         .length > 1;
       messages.push(`But before we can send the ${multiple ? 'services' : 'service'} to you, we are going to need your location. Check your sms inbox for an sms message, click on the link that is provided.`);
       await this.reportLocationService.sendLocationMessage(report);
+    } else {
+      // Set report mode to questionnaire
+      await this.reportService.setReportMode(report, ReportMode.Questionnaire);
     }
 
     return Message(messages.join('. '));

@@ -1,7 +1,7 @@
 <div class="scenario-list__container">
   <div *ngFor="let report of reports; trackBy: trackByReport" [routerLink]="'/app/scenarios/' + report._id"
        class="scenario-list__item">
-    <div class="scenario-list__item-icon">
+    <div class="scenario-list__item-icon" [ngClass]="getIconClass(report)">
       {{ getIcon(report) }}
     </div>
 

@@ -5,7 +5,7 @@ import { Emit, Input, IO, Nsp, SocketService } from '@tsed/socketio';
 import { Document } from 'mongoose';
 import { Namespace, Server } from 'socket.io';
 import { DepartmentCategory, DepartmentSettingModel } from '../ai/department/Departments';
-import { EmergencyResponseType, Report } from './Report';
+import { EmergencyResponseType, Report, ReportMode } from './Report';
 
 @SocketService('/report')
 export class ReportService {
@@ -65,9 +65,12 @@ export class ReportService {
 
   public async setDepartment(
     report: Report & Document,
-    category: DepartmentCategory
+    category: DepartmentCategory,
+    departmentName: string
   ) {
-    report.department = category as DepartmentSettingModel;
+    const departmentSettings: DepartmentSettingModel = category as DepartmentSettingModel;
+    departmentSettings.departmentName = departmentName;
+    report.department = departmentSettings;
     await report.save();
     this.updateReport(report);
   }
@@ -86,6 +89,21 @@ export class ReportService {
     report.callStatus = callStatus;
     await report.save();
     this.updateReport(report);
+  }
+
+  public async setReportMode(
+    report: Report & Document,
+    reportMode: ReportMode
+  ) {
+    report.reportMode = reportMode;
+    await report.save();
+    this.updateReport(report);
+  }
+
+  public getReportById(id: string) {
+    return this.reportModel.findById(id)
+      .populate('callMessages')
+      .exec();
   }
 
   protected internalGetReport(identifier: string) {

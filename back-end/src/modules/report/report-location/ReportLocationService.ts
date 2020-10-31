@@ -7,7 +7,7 @@ import { Document } from 'mongoose';
 import { Twilio } from 'twilio';
 import { ILocationData } from '../../../location/LocationController';
 import Message from '../../emergency/handlers/speech/messages/Message';
-import { Report } from '../Report';
+import { Report, ReportMode } from '../Report';
 import { ReportCallMessageService } from '../report-call-message/ReportCallMessageService';
 import { ReportService } from '../ReportService';
 import { ReportLocation } from './ReportLocation';
@@ -23,10 +23,9 @@ const {
 
 @Service()
 export class ReportLocationService {
+  public isDisabled: boolean = isNil(TWILIO_ACCOUNT_SID) || isNil(TWILIO_AUTH_TOKEN);
   @Inject(ReportService)
   private reportService: ReportService;
-  public isDisabled: boolean = isNil(TWILIO_ACCOUNT_SID) || isNil(TWILIO_AUTH_TOKEN);
-
   private client: Twilio = this.isDisabled ? null : new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
   private googleClient = new Client({});
 
@@ -92,6 +91,9 @@ export class ReportLocationService {
     locationMessage.accuracy = accuracy;
     await locationMessage.save();
 
+    // Update report mode to questionnaire
+    await this.reportService.setReportMode(await this.reportService.getReportById(locationMessage.report), ReportMode.Questionnaire);
+
     const geocode = await this.googleClient.reverseGeocode({
       params: {
         key: GOOGLE_API_TOKEN,
@@ -103,6 +105,6 @@ export class ReportLocationService {
       }
     });
 
-    await this.reportCallMessageService.sendMessageById(locationMessage.report, Message(`We have received your location. Your approximate location is around ${geocode.data.results[0].formatted_address}.`).toString());
+    await this.reportCallMessageService.sendMessageById(locationMessage.report, Message(`We have received your location. Your approximate location is around ${geocode.data.results[ 0 ].formatted_address}.`).toString());
   }
 }

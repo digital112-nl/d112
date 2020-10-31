@@ -91,6 +91,10 @@ export class MapComponent implements OnChanges {
     this.markerClusterData = [];
 
     for (const report of reports) {
+      if ( isNil(report.location.lat) || isNil(report.location.lon) ) {
+        continue;
+      }
+
       const marker = new Marker([ report.location.lat, report.location.lon ], {
         icon: this.icon
       });

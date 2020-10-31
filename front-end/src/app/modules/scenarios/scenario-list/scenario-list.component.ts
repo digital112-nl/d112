@@ -39,8 +39,8 @@ export class ScenarioListComponent {
 
   public getIcon(report: ReportModel) {
     if ( report.department ) {
-      switch (report.department.name) {
-        case 'fire':
+      switch (report.department.departmentName) {
+        case 'fire_department':
           return '🚒';
         case 'police':
           return '🚓';
@@ -48,5 +48,16 @@ export class ScenarioListComponent {
     }
 
     return '🚨';
+  }
+
+  public getIconClass(report: ReportModel) {
+    if ( report.department ) {
+      switch (report.department.departmentName) {
+        case 'fire_department':
+          return 'scenario-list__item-icon--fire-department';
+        case 'police':
+          return 'scenario-list__item-icon--police';
+      }
+    }
   }
 }

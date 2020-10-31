@@ -8,6 +8,8 @@ export interface Department {
 
 export class DepartmentSettingModel implements DepartmentCategory {
   @Property()
+  public departmentName: string;
+  @Property()
   public name: string;
   @Property()
   public message: string;
