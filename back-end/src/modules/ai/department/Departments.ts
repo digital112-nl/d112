@@ -1,4 +1,7 @@
 import { Property } from '@tsed/common';
+import { Questionnaire } from '../questionnaire/Questionnaire';
+import { AccidentQuestionnaire } from '../questionnaire/questionnaires/fire-department/AccidentQuestionnaire';
+import { FireQuestionnaire } from '../questionnaire/questionnaires/fire-department/FireQuestionnaire';
 
 export interface Department {
   name: string;
@@ -29,6 +32,7 @@ export class DepartmentSettingModel implements DepartmentCategory {
 
 export interface DepartmentSettings {
   message: string;
+  questionnaire?: Questionnaire;
   fire_department?: boolean;
   police?: boolean;
   ambulance?: boolean;
@@ -53,14 +57,16 @@ export const Departments: Department[] = [
       {
         name: 'fire',
         message: 'We understand that there is a fire going on at your location.',
-        fire_department: true
+        fire_department: true,
+        questionnaire: FireQuestionnaire
       },
       {
         name: 'accident',
         message: 'We understand you have either seen or are in an accident.',
         fire_department: true,
         ambulance: true,
-        police: true
+        police: true,
+        questionnaire: AccidentQuestionnaire
       }
     ]
   },
@@ -68,7 +74,8 @@ export const Departments: Department[] = [
     name: 'police',
     default: {
       message: 'We have determined you need the police department.',
-      police: true
+      police: true,
+      disable_location_required: true
     },
     categories: [
       {

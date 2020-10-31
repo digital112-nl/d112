@@ -17,17 +17,17 @@ export function ScenarioIconForReport(report: ReportModel): ScenarioIcon[] {
   ) {
     icons.push({
       icon: '📞',
-      description: 'On the line right now.'
+      description: 'On the line right now'
     });
   } else if ( report.callStatus === 'completed' ) {
     icons.push({
       icon: '✅',
-      description: 'Call completed.'
+      description: 'Call completed'
     });
   } else if ( report.callStatus === 'canceled' ) {
     icons.push({
       icon: '❌',
-      description: 'Cancelled call.'
+      description: 'Cancelled call'
     });
   }
 
@@ -51,16 +51,17 @@ export function ScenarioIconForReport(report: ReportModel): ScenarioIcon[] {
       });
     }
     if ( !report.department.disable_location_required ) {
+      const disabled = isNil(report.location) || isNil(report.location.lat) || isNil(report.location.lon);
       icons.push({
         icon: '🌍',
-        description: 'Location',
-        disabled: isNil(report.location) || isNil(report.location.lat) || isNil(report.location.lon)
+        description: disabled ? 'Did not send location' : 'Found location',
+        disabled
       });
     }
     if ( report.department.unhandled ) {
       icons.push({
         icon: '👋🏻',
-        description: 'Do not know how to handle this call.'
+        description: 'Do not know how to handle this call'
       });
     }
   }

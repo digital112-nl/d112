@@ -6,13 +6,13 @@ const {
 } = process.env;
 
 export interface ILocationData {
-  accuracy: number | null,
-  altitude: number | null,
-  altitudeAccuracy: number | null,
-  heading: number | null,
-  latitude: number | null,
-  longitude: number | null,
-  speed: number | null
+  accuracy: number | null;
+  altitude: number | null;
+  altitudeAccuracy: number | null;
+  heading: number | null;
+  latitude: number | null;
+  longitude: number | null;
+  speed: number | null;
 }
 
 @Controller('')
