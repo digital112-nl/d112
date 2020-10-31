@@ -1,0 +1,8 @@
+<h3 class="chat-title">
+  Chat
+</h3>
+<div class="chat-message"
+     *ngFor="let chatMessage of chatMessages"
+     [ngClass]="{'chat-message--ai': chatMessage.fromAI }">
+  {{ chatMessage.message }}
+</div>

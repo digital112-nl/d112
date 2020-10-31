@@ -3,11 +3,13 @@
 :host {
   .map-container {
     position: relative;
-    height: 30vh;
 
     di-map {
       border-radius: 32px;
+      height: 30vh;
       overflow: hidden;
+
+      margin-bottom: 32px;
     }
   }
 

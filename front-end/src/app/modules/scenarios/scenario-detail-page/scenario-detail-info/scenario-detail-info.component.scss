@@ -1,0 +1,19 @@
+@import "component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background: $scenario-item-background;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.info-title {
+  @include font(20, 600);
+  color: $text-default;
+  margin: 0 0 16px;
+}
+
+.update-button {
+  margin-top: 24px;
+}

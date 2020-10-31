@@ -1,0 +1,35 @@
+@import "component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background: $scenario-item-background;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.chat-title {
+  @include font(20, 600);
+  color: $text-default;
+  margin: 0 0 16px;
+}
+
+.chat-message {
+  @include font(14);
+  color: $text-default;
+  background: #DEE6F3;
+  padding: 12px 8px;
+  border-radius: 8px 8px 8px 2px;
+  max-width: 70%;
+  margin-bottom: 12px;
+
+  &--ai {
+    background: #C6E4D9;
+    margin-left: auto;
+    border-radius: 8px 8px 2px 8px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
