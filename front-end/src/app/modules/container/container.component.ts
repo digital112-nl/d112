@@ -1,23 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { isNil } from 'lodash';
-import { Subscription } from 'rxjs';
-
-export interface SideBarContainer {
-  text?: string;
-  permission?: string;
-  items: SideBarItem[];
-}
-
-/**
- * Sidebar item.
- */
-export interface SideBarItem {
-  text: string;
-  icon: string;
-  routerLink: string;
-  disabled?: boolean;
-}
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'di-container',

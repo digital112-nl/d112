@@ -18,6 +18,8 @@ export class ReportLocation {
   @Property()
   public accuracy: number;
   @Property()
+  public geocode: any;
+  @Property()
   public report: string;
   @Property()
   public token: string;

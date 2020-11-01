@@ -55,12 +55,11 @@ export class DepartmentHandler {
     const firstResult = result.intents[ 0 ];
     const { department, category } = this.getDepartmentAndCategory(firstResult);
 
-    const message = await this.generateMessage(report, category);
-
     await this.reportService.setDepartment(report, category, department.name);
 
+    const message = await this.generateMessage(report, category);
+
     await this.reportCallMessageService.sendMessage(report, message.toString());
-    console.log('message has been send');
   }
 
   private getDepartmentAndCategory(intent: WitAiIntent): { department: Department, category: DepartmentCategory } {

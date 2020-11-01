@@ -13,7 +13,7 @@
 
 <div class="scenario-grid__container">
   <div *ngFor="let report of (reports | diFuse : formGroup.value.search:{keys: ['caller']}); trackBy: trackByReport" [routerLink]="'/app/scenarios/' + report._id"
-       class="scenario-grid__item-container">
+       class="scenario-grid__item-container" [ngClass]="isCalling(report)">
     <div class="scenario-list__item-icon" [ngClass]="getIconClass(report)">
       {{ getIcon(report) }}
     </div>

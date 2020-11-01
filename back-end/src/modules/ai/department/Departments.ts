@@ -1,5 +1,5 @@
 import { Property } from '@tsed/common';
-import { Questionnaire } from '../questionnaire/Questionnaire';
+import { Questionnaire, QuestionnaireModel } from '../questionnaire/Questionnaire';
 import { AccidentQuestionnaire } from '../questionnaire/questionnaires/fire-department/AccidentQuestionnaire';
 import { FireQuestionnaire } from '../questionnaire/questionnaires/fire-department/FireQuestionnaire';
 
@@ -17,11 +17,13 @@ export class DepartmentSettingModel implements DepartmentCategory {
   @Property()
   public message: string;
   @Property()
-  public ambulance: boolean;
+  public fire_department: boolean;
   @Property()
   public police: boolean;
   @Property()
-  public fire_department: boolean;
+  public ambulance: boolean;
+  @Property()
+  public questionnaire: QuestionnaireModel;
   @Property()
   public disable_location_required: boolean;
   @Property()
@@ -32,10 +34,10 @@ export class DepartmentSettingModel implements DepartmentCategory {
 
 export interface DepartmentSettings {
   message: string;
-  questionnaire?: Questionnaire;
   fire_department?: boolean;
   police?: boolean;
   ambulance?: boolean;
+  questionnaire?: Questionnaire;
   disable_location_required?: boolean;
   disable_services_message?: boolean;
   unhandled?: boolean;
@@ -58,6 +60,8 @@ export const Departments: Department[] = [
         name: 'fire',
         message: 'We understand that there is a fire going on at your location.',
         fire_department: true,
+        disable_services_message: true,
+        disable_location_required: true,
         questionnaire: FireQuestionnaire
       },
       {
@@ -74,13 +78,13 @@ export const Departments: Department[] = [
     name: 'police',
     default: {
       message: 'We have determined you need the police department.',
-      police: true,
-      disable_location_required: true
+      police: true
     },
     categories: [
       {
         name: 'theft',
         message: 'You seem to have witnessed or been stolen from.',
+        disable_location_required: true,
         police: true,
         unhandled: true
       }

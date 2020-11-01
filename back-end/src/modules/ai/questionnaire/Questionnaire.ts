@@ -1,44 +1,97 @@
-enum Outcome {
+import { CollectionOf, Property } from '@tsed/common';
+
+export enum Outcome {
   AddAmbulance,
   AddPolice,
   AddFireDepartment
 }
 
-interface QuestionPossibility {
-  type: 'AiEntityPossibility' | 'AiIntentPossibility' | 'PriorityPossibility';
+export interface QuestionPossibility {
+  type: 'AiEntityPossibility' | 'AiIntentPossibility' | 'ScalePriorityPossibility';
   key: string;
   outcome?: Outcome | Outcome[];
 }
 
-interface AiEntityPossibility extends QuestionPossibility {
+export interface AiEntityPossibility extends QuestionPossibility {
   type: 'AiEntityPossibility';
   entity: string;
 }
 
-interface AiIntentPossibility extends QuestionPossibility {
+export interface AiIntentPossibility extends QuestionPossibility {
   type: 'AiIntentPossibility';
   intent: string;
 }
 
-enum Priority {
+export enum Priority {
   Emergency = 0,
   High = 1,
   Medium = 2,
   Low = 3,
 }
 
-interface PriorityPossibility extends QuestionPossibility {
-  type: 'PriorityPossibility';
+export interface ScalePriorityPossibility extends QuestionPossibility {
+  type: 'ScalePriorityPossibility';
   priority: Priority;
+  forValue: number;
 }
 
-interface Question {
+export type Possibility = AiEntityPossibility | AiIntentPossibility | ScalePriorityPossibility;
+
+class PossibilityModel implements AiEntityPossibility, AiIntentPossibility, ScalePriorityPossibility {
+  @Property()
+  public type: string | any;
+  @Property()
+  public entity: string;
+  @Property()
+  public intent: string;
+  @Property()
+  public key: string;
+  @Property()
+  public priority: Priority;
+  @Property()
+  public forValue: number;
+  @Property()
+  public outcome?: Outcome | Outcome[];
+}
+
+export interface Question {
   key: string;
   question: string;
-  possibilities: (AiEntityPossibility | AiIntentPossibility | PriorityPossibility)[];
+  type?: 'Possibility' | 'Scale';
+  possibilities?: Possibility[];
+  asked?: boolean;
+  answered?: boolean;
+  outcome?: Possibility;
+}
+
+export class QuestionModel implements Question {
+  @Property()
+  public key: string;
+  @Property()
+  public question: string;
+  @Property()
+  public type?: 'Possibility' | 'Scale';
+  @CollectionOf(PossibilityModel)
+  public possibilities?: Possibility[];
+  @Property()
+  public asked?: boolean;
+  @Property()
+  public answered?: boolean;
+  @Property({ name: 'outcome', use: PossibilityModel })
+  public outcome?: Possibility;
 }
 
 export interface Questionnaire {
   key: string;
   questions: Question[];
+  activeQuestionKey?: string;
+}
+
+export class QuestionnaireModel implements Questionnaire {
+  @Property()
+  public key: string;
+  @Property()
+  public questions: QuestionModel[];
+  @Property()
+  public activeQuestionKey: string;
 }

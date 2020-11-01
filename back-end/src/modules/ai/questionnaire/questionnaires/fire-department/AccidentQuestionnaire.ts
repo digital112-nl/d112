@@ -4,15 +4,9 @@ export const AccidentQuestionnaire: Questionnaire = {
   key: 'accident',
   questions: [
     {
-      key: 'first-question',
-      question: 'How are you doing?',
-      possibilities: [
-        {
-          type: 'AiEntityPossibility',
-          key: 'test',
-          entity: 'test'
-        }
-      ]
+      key: 'scale-1-10',
+      type: 'Scale',
+      question: 'On a scale from 1 to 10 how big is the accident?',
     }
   ]
 };
