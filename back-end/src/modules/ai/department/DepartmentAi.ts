@@ -16,21 +16,31 @@ export interface WitAiIntent {
   confidence: number;
 }
 
-interface WitAiEntity {
+export interface WitAiEntity {
+  id: string;
+  name: string;
+  role: string;
+  start: number;
+  end: number;
+  confidence: number;
+  entities: WitAiEntity[];
+  type: string;
+  value: any;
+  resolved: any;
 }
 
-interface WitAiEntities {
+export interface WitAiEntities {
   [ key: string ]: WitAiEntity[];
 }
 
-interface WitAiMessageResponse {
+export interface WitAiMessageResponse {
   text: string;
   intents: WitAiIntent[];
   entities: WitAiEntities;
   traits: any;
 }
 
-interface WitAi {
+export interface WitAi {
   message(
     message: string,
     context: WitAiContext

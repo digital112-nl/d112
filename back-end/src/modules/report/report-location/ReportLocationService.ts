@@ -91,20 +91,36 @@ export class ReportLocationService {
     locationMessage.accuracy = accuracy;
     await locationMessage.save();
 
-    // Update report mode to questionnaire
-    await this.reportService.setReportMode(await this.reportService.getReportById(locationMessage.report), ReportMode.Questionnaire);
-
-    const geocode = await this.googleClient.reverseGeocode({
-      params: {
-        key: GOOGLE_API_TOKEN,
-        language: Language.en,
-        latlng: {
-          latitude,
-          longitude
+    try {
+      const geocode = await this.googleClient.reverseGeocode({
+        params: {
+          key: GOOGLE_API_TOKEN,
+          language: Language.en,
+          latlng: {
+            latitude,
+            longitude
+          }
         }
-      }
-    });
+      });
 
-    await this.reportCallMessageService.sendMessageById(locationMessage.report, Message(`We have received your location. Your approximate location is around ${geocode.data.results[ 0 ].formatted_address}.`).toString());
+      locationMessage.geocode = geocode.data.results[ 0 ];
+      await locationMessage.save();
+
+      await this.reportCallMessageService.sendMessageById(
+        locationMessage.report,
+        Message(`We have received your location. Your approximate location is around ${geocode.data.results[ 0 ].formatted_address}.`)
+          .toString()
+      );
+    } catch (err) {
+      console.error(err);
+      await this.reportCallMessageService.sendMessageById(
+        locationMessage.report,
+        Message(`We have received your location. However we couldn't find an approximate location.`)
+          .toString()
+      );
+    } finally {
+      // Update report mode to questionnaire
+      await this.reportService.setReportMode(await this.reportService.getReportById(locationMessage.report), ReportMode.Questionnaire);
+    }
   }
 }

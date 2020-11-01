@@ -50,6 +50,11 @@
       overflow: hidden;
       cursor: pointer;
       transition: box-shadow .25s ease-out;
+      border: solid 1px $scenario-item-background;
+
+      &.is-calling {
+        animation: border-calling 1s ease-out infinite;
+      }
 
       &:last-child {
         margin-bottom: 0;

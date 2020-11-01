@@ -19,3 +19,18 @@
     background: $police;
   }
 }
+
+
+@keyframes border-calling {
+  0% {
+    border: solid 1px $scenario-item-background;
+  }
+
+  50% {
+    border: solid 1px $icon-color;
+  }
+
+  100% {
+    border: solid 1px $scenario-item-background;
+  }
+}

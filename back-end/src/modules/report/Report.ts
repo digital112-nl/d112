@@ -1,8 +1,12 @@
 import { Default, Enum, Property } from '@tsed/common';
+import { isNil } from '@tsed/core';
+import { InternalServerError } from '@tsed/exceptions';
 import { Model, Ref } from '@tsed/mongoose';
 import { DepartmentSettingModel } from '../ai/department/Departments';
+import { QuestionnaireModel } from '../ai/questionnaire/Questionnaire';
 import { ReportCallMessage } from './report-call-message/ReportCallMessage';
 import { ReportLocation } from './report-location/ReportLocation';
+import { assign } from 'lodash';
 
 export enum EmergencyResponseType {
   Text = 0,

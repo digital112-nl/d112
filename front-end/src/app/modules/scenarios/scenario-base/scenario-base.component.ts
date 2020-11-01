@@ -39,4 +39,14 @@ export class ScenarioBaseComponent {
       }
     }
   }
+
+
+  public isCalling(report: ReportModel) {
+    if (
+      report.callStatus === 'ringing' ||
+      report.callStatus === 'in-progress'
+    ) {
+      return 'is-calling';
+    }
+  }
 }

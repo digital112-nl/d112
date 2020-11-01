@@ -2,18 +2,20 @@ import { isNil } from '@tsed/core';
 import { Inject } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Emit, Input, IO, Nsp, SocketService } from '@tsed/socketio';
+import { EventEmitter } from 'events';
 import { Document } from 'mongoose';
 import { Namespace, Server } from 'socket.io';
 import { DepartmentCategory, DepartmentSettingModel } from '../ai/department/Departments';
 import { EmergencyResponseType, Report, ReportMode } from './Report';
 
 @SocketService('/report')
-export class ReportService {
+export class ReportService extends EventEmitter {
   @Nsp nsp: Namespace;
   @Inject(Report)
   private reportModel: MongooseModel<Report>;
 
   constructor(@IO private io: Server) {
+    super();
   }
 
   public newReport(
@@ -97,6 +99,7 @@ export class ReportService {
   ) {
     report.reportMode = reportMode;
     await report.save();
+    this.emit('report-mode-update', { report, reportMode });
     this.updateReport(report);
   }
 
