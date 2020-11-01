@@ -1,8 +1,11 @@
 <h3 class="chat-title">
   Chat
 </h3>
-<div class="chat-message"
-     *ngFor="let chatMessage of chatMessages"
-     [ngClass]="{'chat-message--ai': chatMessage.fromAI }">
-  {{ chatMessage.message }}
-</div>
+<ng-container *ngFor="let question of questionnaire">
+  <div class="chat-message chat-message--ai">
+    {{ question.question }}
+  </div>
+  <div class="chat-message" *ngIf="question.type === 'Scale'">
+    {{ question?.outcome?.priority }} ( escalating to {{question?.outcome?.priority | prio}} priority )
+  </div>
+</ng-container>
