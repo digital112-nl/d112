@@ -4,45 +4,6 @@
   display: flex;
   flex-direction: column;
 
-  .activity-status {
-    position: relative;
-    width: fit-content;
-    padding: 6px 12px;
-    border-radius: 12px;
-
-    color: $text-gray;
-    background: #D0CDCD;
-    @include font(14, 600);
-
-    margin: 18px 0;
-
-    &:before,
-    &:after {
-      content: ' ';
-      position: absolute;
-      width: 1px;
-      height: 14px;
-      background: #D0CDCD;
-      left: 20px;
-    }
-
-    &:before {
-      top: -16px;
-    }
-
-    &:after {
-      bottom: -16px;
-    }
-
-    &:first-of-type {
-      margin: 0 0 18px;
-
-      &:before {
-        display: none;
-      }
-    }
-  }
-
   .activity-item {
     display: flex;
     flex-direction: row;
@@ -53,8 +14,13 @@
     padding: 12px;
     box-sizing: border-box;
     background: $scenario-item-background;
+    margin-bottom: 32px;
 
     overflow: hidden;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     &__icon {
       display: flex;
@@ -64,7 +30,7 @@
       width: 40px;
       min-width: 40px;
       height: 40px;
-      background: #F19292;
+      background: #dfe6e9;
       border-radius: 12px;
       @include font(14);
 
@@ -73,13 +39,13 @@
 
     &__information {
       &-title {
-        margin: 0 0 4px;
+        margin: 0;
         color: $text-default;
         @include font(14, 600);
       }
 
       &-time {
-        margin: 0;
+        margin: 4px 0 0;
         color: $text-gray;
         @include font(12);
       }

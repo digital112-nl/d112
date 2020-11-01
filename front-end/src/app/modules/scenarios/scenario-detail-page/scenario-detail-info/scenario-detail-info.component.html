@@ -14,11 +14,19 @@
 
     <div class="input-field col col-lg-6 col-md-6 col-sm-12 col-xs-12">
       <label class="input-field__label" for="status">Status</label>
+      <div class="scenario-status scenario-status--{{scenarioDetailPageService.report.callStatus}}"
+           id="status">
+        {{ scenarioDetailPageService.report.callStatus }}
+      </div>
+    </div>
+
+    <div class="input-field input-field--margin-bottom col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <label class="input-field__label" for="department">Department</label>
       <input class="input-field__input"
              readonly
-             [formControlName]="'status'"
+             [formControlName]="'department'"
              type="text"
-             id="status">
+             id="department">
     </div>
 
     <div class="input-field col col-lg-6 col-md-6 col-sm-12 col-xs-12">
