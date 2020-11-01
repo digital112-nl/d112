@@ -17,3 +17,53 @@
 .update-button {
   margin-top: 24px;
 }
+
+.scenario-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-radius: 8px;
+
+  color: $text-default;
+  @include font(14, 500);
+  background: $input-background;
+
+  &--completed {
+    background: #2ecc71;
+    color: $text-white;
+  }
+
+  &--queued {
+    background: $input-background;
+    color: $text-default;
+  }
+
+  &--initiated,
+  &--in-progress,
+  &--ringing, {
+    background: $button-cta;
+    color: $text-white;
+    animation: in-progress 1s ease-out infinite;
+  }
+
+  &--busy,
+  &--no-answer,
+  &--failed,
+  &--canceled, {
+    background: #e74c3c;
+    color: $text-white;
+  }
+}
+
+@include keyframes(in-progress) {
+  0% {
+    box-shadow: 0 2px 0 0 rgba(6, 77, 254, 0);
+  }
+  50% {
+    box-shadow: 0 2px 15px 0 rgba(6, 77, 254, .5);
+  }
+  100% {
+    box-shadow: 0 2px 0 0 rgba(6, 77, 254, 0);
+  }
+}
