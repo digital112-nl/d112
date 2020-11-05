@@ -16,6 +16,8 @@ export class DashboardPageComponent implements OnDestroy {
   public locationReports: Array<ReportModel> = [];
   public totalReportCount = 0;
   private subscriptions: Subscription[] = [];
+  public totalAccidentCount = 0;
+  public totalFireCount = 0;
 
   constructor(
     private reportSocketService: ReportSocketService,
@@ -45,6 +47,8 @@ export class DashboardPageComponent implements OnDestroy {
     this.reportControllerService.ReportControllerFindAll()
       .subscribe((reports) => {
         this.totalReportCount = reports.length;
+        this.totalAccidentCount = reports.filter(({  department }) => department && department?.name === 'accident').length;
+        this.totalFireCount = reports.filter(({  department }) => department && department?.name === 'fire').length;
         this.reports = reports.slice(0, 5);
       });
     this.reportControllerService.ReportControllerFindAllWithLocation()

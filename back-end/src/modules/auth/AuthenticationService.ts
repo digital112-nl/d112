@@ -21,7 +21,7 @@ export class AuthenticationService {
       .populate('user')
       .exec();
 
-    if ( apiKey.validUntil < (new Date()) ) {
+    if ( apiKey?.validUntil < (new Date()) ) {
       throw new Unauthorized('Api key no longer valid.');
     } else {
       return apiKey;

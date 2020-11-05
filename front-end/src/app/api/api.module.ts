@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
 import { AuthenticationControllerService } from './services/authentication-controller.service';
-import { IntentControllerService } from './services/intent-controller.service';
 import { ReportControllerService } from './services/report-controller.service';
 import { TwilioControllerService } from './services/twilio-controller.service';
 import { LocationControllerService } from './services/location-controller.service';
@@ -23,7 +22,6 @@ import { LocationControllerService } from './services/location-controller.servic
   providers: [
     ApiConfiguration,
     AuthenticationControllerService,
-    IntentControllerService,
     ReportControllerService,
     TwilioControllerService,
     LocationControllerService

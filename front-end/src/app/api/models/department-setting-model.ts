@@ -1,4 +1,5 @@
 /* tslint:disable */
+import { QuestionnaireModel } from './questionnaire-model';
 export interface DepartmentSettingModel {
   ambulance?: boolean;
   departmentName?: string;
@@ -8,5 +9,6 @@ export interface DepartmentSettingModel {
   message?: string;
   name?: string;
   police?: boolean;
+  questionnaire?: QuestionnaireModel;
   unhandled?: boolean;
 }

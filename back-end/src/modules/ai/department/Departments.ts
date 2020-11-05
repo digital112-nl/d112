@@ -69,8 +69,7 @@ export const Departments: Department[] = [
         message: 'We understand you have either seen or are in an accident.',
         fire_department: true,
         ambulance: true,
-        police: true,
-        questionnaire: AccidentQuestionnaire
+        police: true
       }
     ]
   },

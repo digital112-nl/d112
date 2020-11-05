@@ -5,7 +5,8 @@
 
       <div class="row">
         <div class="col col-lg-6 col-md-6 col-sm-12 col-xs-12">
-          <di-scenario-detail-chat>
+          <di-scenario-detail-chat
+            [questionnaire]="scenarioDetailPageService.report?.department?.questionnaire">
           </di-scenario-detail-chat>
         </div>
 

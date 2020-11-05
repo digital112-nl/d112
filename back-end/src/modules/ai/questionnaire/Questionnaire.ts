@@ -90,7 +90,7 @@ export interface Questionnaire {
 export class QuestionnaireModel implements Questionnaire {
   @Property()
   public key: string;
-  @Property()
+  @CollectionOf(QuestionModel)
   public questions: QuestionModel[];
   @Property()
   public activeQuestionKey: string;
