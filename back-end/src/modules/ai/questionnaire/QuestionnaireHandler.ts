@@ -125,7 +125,8 @@ export class QuestionnaireHandler {
 
     let questions = QuestionnaireHandler.getQuestions(report);
     const hasQuestions = questions.length > 0;
-    const hasQuestionsLeft = questions.filter((question) => !question.asked && !question.answered);
+    const hasQuestionsLeft = questions.filter((question) => !question.asked && !question.answered)
+      .length > 0;
 
     if ( !hasQuestions || !hasQuestionsLeft ) {
       await this.reportCallMessageService.sendMessage(
@@ -188,6 +189,7 @@ export class QuestionnaireHandler {
     questions[ index ].outcome = outcome;
     questions[ index ].answered = true;
     await this.updateQuestionnaire(report, { questions });
+    await this.askNestQuestion(report);
   }
 
 
