@@ -60,8 +60,6 @@ export const Departments: Department[] = [
         name: 'fire',
         message: 'We understand that there is a fire going on at your location.',
         fire_department: true,
-        disable_services_message: true,
-        disable_location_required: true,
         questionnaire: FireQuestionnaire
       },
       {
