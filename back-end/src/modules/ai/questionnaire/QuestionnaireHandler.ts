@@ -41,7 +41,7 @@ export class QuestionnaireHandler {
     return !isNil(report.department.questionnaire);
   }
 
-  private static async askNextQuestion(report: Report & Document) {
+  private async askNextQuestion(report: Report & Document) {
     const questions = QuestionnaireHandler.getQuestions(report)
       .filter((question) => !question.asked);
 
@@ -49,7 +49,7 @@ export class QuestionnaireHandler {
       const nextQuestion = questions[ 0 ];
       const activeQuestionKey = nextQuestion.key;
 
-      await QuestionnaireHandler.updateQuestionnaire(report, { questions, activeQuestionKey });
+      await this.updateQuestionnaire(report, { questions, activeQuestionKey });
 
       return nextQuestion;
     }
@@ -57,7 +57,7 @@ export class QuestionnaireHandler {
     return null;
   }
 
-  private static async updateQuestionnaire(
+  private async updateQuestionnaire(
     report: Report & Document,
     questionnaire: Partial<Questionnaire>
   ) {
@@ -68,6 +68,7 @@ export class QuestionnaireHandler {
       report.department.questionnaire.activeQuestionKey = questionnaire.activeQuestionKey;
     }
     await report.save();
+    this.reportService.updateReport(report);
   }
 
   public async handleIncomingText(
@@ -137,7 +138,7 @@ export class QuestionnaireHandler {
     let current = this.getCurrentQuestion(report);
 
     if ( isNil(current) ) {
-      current = await QuestionnaireHandler.askNextQuestion(report);
+      current = await this.askNextQuestion(report);
       report = await this.reportModel.findById(report._id);
     }
 
@@ -152,7 +153,7 @@ export class QuestionnaireHandler {
       const questions = QuestionnaireHandler.getQuestions(report);
       const index = findIndex(questions, { key: current.key });
       questions[ index ].asked = true;
-      await QuestionnaireHandler.updateQuestionnaire(report, { questions });
+      await this.updateQuestionnaire(report, { questions });
     }
   }
 
@@ -186,7 +187,7 @@ export class QuestionnaireHandler {
     const index = findIndex(questions, { key: current.key });
     questions[ index ].outcome = outcome;
     questions[ index ].answered = true;
-    await QuestionnaireHandler.updateQuestionnaire(report, { questions });
+    await this.updateQuestionnaire(report, { questions });
   }
 
 
